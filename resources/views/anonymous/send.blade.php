@@ -27,11 +27,6 @@
                         <textarea name="content" required rows="4" maxlength="1000" placeholder="Écris ton message ici..."
                             class="mt-1 w-full text-sm border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
                     </div>
-                    <div>
-                        <label class="text-sm font-medium text-gray-700">Ton nom (optionnel, reste "Anonyme" sinon)</label>
-                        <input type="text" name="sender_name" maxlength="100" placeholder="Anonyme"
-                            class="mt-1 w-full text-sm border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-emerald-500">
-                    </div>
                     <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition">Envoyer anonymement</button>
                 </form>
 

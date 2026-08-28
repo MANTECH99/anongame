@@ -46,13 +46,12 @@ class AnonymousController extends Controller
     {
         $data = $request->validate([
             'content' => 'required|string|max:1000',
-            'sender_name' => 'nullable|string|max:100',
         ]);
 
         AnonymousMessage::create([
             'anonymous_link_id' => $link->id,
             'content' => $data['content'],
-            'sender_name' => $data['sender_name'] ?: 'Anonyme',
+            'sender_name' => 'Anonyme',
             'is_read' => false,
         ]);
 
