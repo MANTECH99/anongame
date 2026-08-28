@@ -1,4 +1,4 @@
-const CACHE_NAME = 'anongame-v5';
+const CACHE_NAME = 'anongame-v6';
 const APP_SHELL = [
     '/',
     '/quiz',
