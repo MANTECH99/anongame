@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[x-cloak] {
+    display: none !important;
+}
+
+/* iOS PWA notch/status-bar safe area */
+.pwa-safe-top {
+    padding-top: env(safe-area-inset-top);
+}
+
