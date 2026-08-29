@@ -44,19 +44,22 @@
                 </div>
 
                 <!-- Shareable image card (preview) -->
-                <div x-ref="shareCard" :data-message="selected.content" :data-sender="selected.sender" class="relative mx-auto max-w-[300px] rounded-3xl overflow-hidden shadow-lg ring-1 ring-black/5 bg-gradient-to-b from-rose-600 via-pink-600 to-purple-700 px-6 pb-6 pt-5 text-center min-h-[360px] flex flex-col">
-                    <div class="absolute -top-6 -right-8 w-28 h-28 rounded-full bg-white/10"></div>
-                    <div class="absolute -bottom-10 -left-10 w-32 h-32 rounded-full bg-white/10"></div>
-                    <div class="relative flex flex-col flex-1">
-                        <div class="w-[60px] h-[60px] mx-auto mb-3 rounded-[18px] bg-white text-violet-700 text-4xl font-extrabold flex items-center justify-center shadow-lg">?</div>
-                        <div class="text-white font-extrabold text-xl leading-tight drop-shadow">Bienvenue sur AnonGame</div>
-                        <div class="text-white/85 text-xs mt-1" x-text="selected.sender ? 'Message de ' + selected.sender : 'Message anonyme'"></div>
-                        <div class="flex-1 flex items-center justify-center py-6">
-                            <p class="text-white text-xl font-semibold whitespace-pre-wrap break-words leading-relaxed" x-text="selected.content"></p>
+                <div x-ref="shareCard" :data-message="selected.content" :data-sender="selected.sender" class="mx-auto max-w-[300px] rounded-3xl overflow-hidden shadow-lg ring-1 ring-black/5 flex flex-col min-h-[360px]">
+                    <div class="relative bg-gradient-to-r from-rose-600 via-pink-600 to-purple-700 px-6 py-5 text-center overflow-hidden">
+                        <div class="absolute -top-6 -right-8 w-24 h-24 rounded-full bg-white/10"></div>
+                        <div class="absolute -bottom-8 -left-8 w-28 h-28 rounded-full bg-white/10"></div>
+                        <div class="relative">
+                            <div class="w-[54px] h-[54px] mx-auto mb-2 rounded-2xl bg-white text-violet-700 text-3xl font-extrabold flex items-center justify-center shadow-lg">?</div>
+                            <div class="text-white font-extrabold text-xl leading-tight drop-shadow">Bienvenue sur AnonGame</div>
                         </div>
-                        <div class="card-footer border-t border-white/25 pt-3 text-center">
-                            <div class="text-[11px] font-bold uppercase tracking-widest text-white/75">AnonGame · Quiz · Devinettes</div>
-                            <div class="text-[10px] text-white/50 mt-0.5">Jouer n'a jamais été aussi anonyme</div>
+                    </div>
+                    <div class="bg-gray-900 flex-1 flex flex-col">
+                        <div class="flex-1 flex items-center justify-center px-6 py-6">
+                            <p class="text-white text-xl font-semibold whitespace-pre-wrap break-words leading-relaxed text-center" x-text="selected.content"></p>
+                        </div>
+                        <div class="card-footer border-t border-white/10 px-6 py-3 text-center">
+                            <div class="text-[11px] font-bold uppercase tracking-widest text-white/60">AnonGame · Quiz · Devinettes</div>
+                            <div class="text-[10px] text-white/35 mt-0.5">Jouer n'a jamais été aussi anonyme</div>
                         </div>
                     </div>
                 </div>

@@ -57,15 +57,16 @@ function font(weight, size) {
 }
 
 function generateCardCanvas({ message = '', sender = '', reply = null, withFooter = true }) {
-    const headerH = 160;
+    const headerH = 150;
+    const bodyBg = '#111827'; // matches the dark page background
     const msgSize = 20;
     const msgLh = 32;
-    const msgTopPad = 14;
+    const msgTopPad = 24;
     const msgSidePad = 30;
     const replySize = 20;
     const replyLh = 32;
     const replyLabelH = 24;
-    const footH = withFooter ? 62 : 0;
+    const footH = withFooter ? 58 : 0;
     const maxW = W - msgSidePad * 2;
 
     const meas = document.createElement('canvas').getContext('2d');
@@ -91,53 +92,49 @@ function generateCardCanvas({ message = '', sender = '', reply = null, withFoote
     ctx.scale(SCALE, SCALE);
 
     // rounded clip
-    roundRect(ctx, 0, 0, W, H, RADIUS);
     ctx.save();
     roundRect(ctx, 0, 0, W, H, RADIUS);
     ctx.clip();
 
-    // full-card vertical gradient (NO white background)
-    const grad = ctx.createLinearGradient(0, 0, 0, H);
+    // header gradient (rose -> violet)
+    const grad = ctx.createLinearGradient(0, 0, 0, headerH);
     grad.addColorStop(0, '#e11d48');
-    grad.addColorStop(0.55, '#db2777');
-    grad.addColorStop(1, '#6d28d9');
+    grad.addColorStop(0.5, '#db2777');
+    grad.addColorStop(1, '#7e22ce');
     ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, W, H);
+    ctx.fillRect(0, 0, W, headerH);
 
-    // decorative circles
+    // decorative header circles
     ctx.fillStyle = 'rgba(255,255,255,0.12)';
     ctx.beginPath();
-    ctx.arc(W - 6, 24, 58, 0, Math.PI * 2);
+    ctx.arc(W - 6, 20, 54, 0, Math.PI * 2);
     ctx.fill();
     ctx.beginPath();
-    ctx.arc(6, H - 40, 64, 0, Math.PI * 2);
+    ctx.arc(6, headerH, 50, 0, Math.PI * 2);
     ctx.fill();
 
     // message icon (white bubble, violet "?")
-    const badge = 60;
+    const badge = 54;
     const bx = (W - badge) / 2;
-    const by = 24;
+    const by = 20;
     ctx.fillStyle = '#ffffff';
-    roundRect(ctx, bx, by, badge, badge, 18);
+    roundRect(ctx, bx, by, badge, badge, 17);
     ctx.fill();
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.font = font(800, 36);
+    ctx.font = font(800, 33);
     ctx.fillStyle = '#7c3aed';
     ctx.fillText('?', W / 2, by + badge / 2 + 2);
 
-    // header texts
+    // header title (only "Bienvenue sur AnonGame")
     ctx.font = font(800, 21);
     ctx.fillStyle = '#ffffff';
-    ctx.fillText('Bienvenue sur AnonGame', W / 2, by + badge + 32);
-    ctx.font = font(500, 13);
-    ctx.fillStyle = 'rgba(255,255,255,0.85)';
-    const sub =
-        sender && sender !== 'Anonyme' ? 'Message de ' + sender : 'Message anonyme';
-    ctx.fillText(sub, W / 2, by + badge + 56);
+    ctx.fillText('Bienvenue sur AnonGame', W / 2, by + badge + 30);
 
-    // message body (on the gradient, white text, larger + centered)
+    // message body (dark, no white background)
     if (msgLines.length) {
+        ctx.fillStyle = bodyBg;
+        ctx.fillRect(0, headerH, W, H - headerH - footH - replyH);
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
         ctx.font = font(600, msgSize);
@@ -152,9 +149,9 @@ function generateCardCanvas({ message = '', sender = '', reply = null, withFoote
     // reply block (bottom) - only when replying
     if (reply !== null && reply !== undefined && String(reply).trim()) {
         let by2 = H - footH - replyH;
-        ctx.fillStyle = 'rgba(255,255,255,0.10)';
+        ctx.fillStyle = 'rgba(255,255,255,0.06)';
         ctx.fillRect(0, by2, W, replyH);
-        ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+        ctx.strokeStyle = 'rgba(255,255,255,0.15)';
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(0, by2 + 0.5);
@@ -164,7 +161,7 @@ function generateCardCanvas({ message = '', sender = '', reply = null, withFoote
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
         ctx.font = font(800, 11);
-        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.fillStyle = 'rgba(255,255,255,0.6)';
         ctx.fillText('TA R\u00c9PONSE', PAD, by2);
         by2 += replyLabelH;
         ctx.font = font(600, replySize);
@@ -179,7 +176,9 @@ function generateCardCanvas({ message = '', sender = '', reply = null, withFoote
     // footer (download only)
     if (withFooter) {
         const fy = H - footH;
-        ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+        ctx.fillStyle = bodyBg;
+        ctx.fillRect(0, fy, W, footH);
+        ctx.strokeStyle = 'rgba(255,255,255,0.15)';
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(PAD, fy + 0.5);
@@ -188,11 +187,11 @@ function generateCardCanvas({ message = '', sender = '', reply = null, withFoote
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.font = font(800, 11);
-        ctx.fillStyle = 'rgba(255,255,255,0.75)';
-        ctx.fillText('ANONGAME \u00b7 QUIZ \u00b7 DEVINETTES', W / 2, fy + 24);
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.fillText('ANONGAME \u00b7 QUIZ \u00b7 DEVINETTES', W / 2, fy + 23);
         ctx.font = font(500, 10);
-        ctx.fillStyle = 'rgba(255,255,255,0.5)';
-        ctx.fillText('Jouer n\u2019a jamais \u00e9t\u00e9 aussi anonyme', W / 2, fy + 42);
+        ctx.fillStyle = 'rgba(255,255,255,0.45)';
+        ctx.fillText('Jouer n\u2019a jamais \u00e9t\u00e9 aussi anonyme', W / 2, fy + 41);
     }
 
     ctx.restore();
