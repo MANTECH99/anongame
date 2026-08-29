@@ -58,12 +58,12 @@ function font(weight, size) {
 
 function generateCardCanvas({ message = '', sender = '', reply = null, withFooter = true }) {
     const headerH = 160;
-    const msgSize = 18;
-    const msgLh = 29;
+    const msgSize = 20;
+    const msgLh = 32;
     const msgTopPad = 14;
     const msgSidePad = 30;
-    const replySize = 18;
-    const replyLh = 29;
+    const replySize = 20;
+    const replyLh = 32;
     const replyLabelH = 24;
     const footH = withFooter ? 62 : 0;
     const maxW = W - msgSidePad * 2;

@@ -52,7 +52,7 @@
                         <div class="text-white font-extrabold text-xl leading-tight drop-shadow">Bienvenue sur AnonGame</div>
                         <div class="text-white/85 text-xs mt-1" x-text="selected.sender ? 'Message de ' + selected.sender : 'Message anonyme'"></div>
                         <div class="flex-1 flex items-center justify-center py-6">
-                            <p class="text-white text-lg font-semibold whitespace-pre-wrap break-words leading-relaxed" x-text="selected.content"></p>
+                            <p class="text-white text-xl font-semibold whitespace-pre-wrap break-words leading-relaxed" x-text="selected.content"></p>
                         </div>
                         <div class="card-footer border-t border-white/25 pt-3 text-center">
                             <div class="text-[11px] font-bold uppercase tracking-widest text-white/75">AnonGame · Quiz · Devinettes</div>
