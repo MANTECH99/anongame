@@ -1,10 +1,12 @@
 // Direct-canvas card renderer. Fully deterministic (no html-to-image / SVG
-// foreignObject quirks, works on iOS). Draws:
-//   header (logo + "Bienvenue sur AnonGame") -> message -> (reply at bottom) | footer
-const W = 500;
+// foreignObject quirks, works on iOS). Portrait status-style card:
+//   header (message "?" icon + "Bienvenue sur AnonGame") -> message (no white bg)
+//   -> (reply at bottom) | footer
+const W = 440;
 const SCALE = 2;
-const PAD = 28;
-const RADIUS = 28;
+const PAD = 26;
+const RADIUS = 30;
+const MIN_MSG_AREA = 320; // keep the card portrait even for short messages
 
 function roundRect(ctx, x, y, w, h, r) {
     ctx.beginPath();
@@ -55,31 +57,32 @@ function font(weight, size) {
 }
 
 function generateCardCanvas({ message = '', sender = '', reply = null, withFooter = true }) {
-    const headerH = 176;
-    const msgSize = 16;
-    const msgLh = 25;
-    const replySize = 16;
-    const replyLh = 25;
-    const replyLabelH = 22;
+    const headerH = 160;
+    const msgSize = 18;
+    const msgLh = 29;
+    const msgTopPad = 14;
+    const msgSidePad = 30;
+    const replySize = 18;
+    const replyLh = 29;
+    const replyLabelH = 24;
     const footH = withFooter ? 62 : 0;
-    const maxW = W - PAD * 2;
+    const maxW = W - msgSidePad * 2;
 
     const meas = document.createElement('canvas').getContext('2d');
     meas.font = font(500, msgSize);
     const msgLines = wrap(meas, message, maxW);
-    const msgH = msgLines.length * msgLh;
+    const msgTextH = msgLines.length * msgLh;
+    const msgAreaH = Math.max(msgTextH + msgTopPad * 2, MIN_MSG_AREA);
 
     let replyLines = [];
     let replyH = 0;
     if (reply !== null && reply !== undefined && String(reply).trim()) {
         meas.font = font(500, replySize);
         replyLines = wrap(meas, reply, maxW);
-        replyH = 26 + replyLabelH + replyLines.length * replyLh;
+        replyH = 28 + replyLabelH + replyLines.length * replyLh;
     }
 
-    const bodyPad = msgLines.length ? 30 : 0;
-    const bodyH = msgLines.length ? bodyPad + msgH + bodyPad : 0;
-    const H = headerH + bodyH + replyH + footH;
+    const H = headerH + msgAreaH + replyH + footH;
 
     const canvas = document.createElement('canvas');
     canvas.width = W * SCALE;
@@ -87,96 +90,96 @@ function generateCardCanvas({ message = '', sender = '', reply = null, withFoote
     const ctx = canvas.getContext('2d');
     ctx.scale(SCALE, SCALE);
 
-    // white rounded card + rounded clip
+    // rounded clip
     roundRect(ctx, 0, 0, W, H, RADIUS);
-    ctx.fillStyle = '#ffffff';
-    ctx.fill();
     ctx.save();
     roundRect(ctx, 0, 0, W, H, RADIUS);
     ctx.clip();
 
-    // header gradient
-    const grad = ctx.createLinearGradient(0, 0, 0, headerH);
+    // full-card vertical gradient (NO white background)
+    const grad = ctx.createLinearGradient(0, 0, 0, H);
     grad.addColorStop(0, '#e11d48');
-    grad.addColorStop(0.5, '#db2777');
-    grad.addColorStop(1, '#7e22ce');
+    grad.addColorStop(0.55, '#db2777');
+    grad.addColorStop(1, '#6d28d9');
     ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, W, headerH);
+    ctx.fillRect(0, 0, W, H);
 
     // decorative circles
-    ctx.fillStyle = 'rgba(255,255,255,0.10)';
+    ctx.fillStyle = 'rgba(255,255,255,0.12)';
     ctx.beginPath();
-    ctx.arc(W - 4, 16, 54, 0, Math.PI * 2);
+    ctx.arc(W - 6, 24, 58, 0, Math.PI * 2);
     ctx.fill();
     ctx.beginPath();
-    ctx.arc(10, headerH - 10, 60, 0, Math.PI * 2);
+    ctx.arc(6, H - 40, 64, 0, Math.PI * 2);
     ctx.fill();
 
-    // logo badge
-    const badge = 58;
-    const badgeX = (W - badge) / 2;
-    const badgeY = 18;
+    // message icon (white bubble, violet "?")
+    const badge = 60;
+    const bx = (W - badge) / 2;
+    const by = 24;
     ctx.fillStyle = '#ffffff';
-    roundRect(ctx, badgeX, badgeY, badge, badge, 16);
+    roundRect(ctx, bx, by, badge, badge, 18);
     ctx.fill();
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.font = font(400, 30);
-    ctx.fillText('\u{1F3AE}', W / 2, badgeY + badge / 2 + 2);
+    ctx.font = font(800, 36);
+    ctx.fillStyle = '#7c3aed';
+    ctx.fillText('?', W / 2, by + badge / 2 + 2);
 
     // header texts
-    ctx.font = font(800, 22);
+    ctx.font = font(800, 21);
     ctx.fillStyle = '#ffffff';
-    ctx.fillText('Bienvenue sur AnonGame', W / 2, badgeY + badge + 30);
+    ctx.fillText('Bienvenue sur AnonGame', W / 2, by + badge + 32);
     ctx.font = font(500, 13);
     ctx.fillStyle = 'rgba(255,255,255,0.85)';
     const sub =
         sender && sender !== 'Anonyme' ? 'Message de ' + sender : 'Message anonyme';
-    ctx.fillText(sub, W / 2, badgeY + badge + 52);
+    ctx.fillText(sub, W / 2, by + badge + 56);
 
-    // message body
+    // message body (on the gradient, white text, larger + centered)
     if (msgLines.length) {
-        ctx.textAlign = 'left';
+        ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
-        ctx.font = font(500, msgSize);
-        ctx.fillStyle = '#1f2937';
-        let my = headerH + bodyPad;
+        ctx.font = font(600, msgSize);
+        ctx.fillStyle = '#ffffff';
+        let my = headerH + msgTopPad;
         for (const line of msgLines) {
-            ctx.fillText(line, PAD, my);
+            ctx.fillText(line, W / 2, my);
             my += msgLh;
         }
     }
 
-    // reply block (bottom, before footer) - only when replying
+    // reply block (bottom) - only when replying
     if (reply !== null && reply !== undefined && String(reply).trim()) {
-        let by = H - footH - replyH;
-        ctx.fillStyle = '#fdf2f5';
-        ctx.fillRect(0, by, W, replyH);
-        ctx.strokeStyle = '#f6e0e6';
+        let by2 = H - footH - replyH;
+        ctx.fillStyle = 'rgba(255,255,255,0.10)';
+        ctx.fillRect(0, by2, W, replyH);
+        ctx.strokeStyle = 'rgba(255,255,255,0.25)';
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.moveTo(0, by + 0.5);
-        ctx.lineTo(W, by + 0.5);
+        ctx.moveTo(0, by2 + 0.5);
+        ctx.lineTo(W, by2 + 0.5);
         ctx.stroke();
-        by += 18;
+        by2 += 18;
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
         ctx.font = font(800, 11);
-        ctx.fillStyle = '#e11d48';
-        ctx.fillText('Ta r\u00e9ponse', PAD, by);
-        by += replyLabelH;
-        ctx.font = font(500, replySize);
-        ctx.fillStyle = '#9f1239';
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.fillText('TA R\u00c9PONSE', PAD, by2);
+        by2 += replyLabelH;
+        ctx.font = font(600, replySize);
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
         for (const line of replyLines) {
-            ctx.fillText(line, PAD, by);
-            by += replyLh;
+            ctx.fillText(line, W / 2, by2);
+            by2 += replyLh;
         }
     }
 
     // footer (download only)
     if (withFooter) {
         const fy = H - footH;
-        ctx.strokeStyle = '#f3f4f6';
+        ctx.strokeStyle = 'rgba(255,255,255,0.25)';
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(PAD, fy + 0.5);
@@ -185,11 +188,11 @@ function generateCardCanvas({ message = '', sender = '', reply = null, withFoote
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.font = font(800, 11);
-        ctx.fillStyle = '#9ca3af';
-        ctx.fillText('ANONGAME \u00b7 QUIZ \u00b7 DEVINETTES', W / 2, fy + 22);
+        ctx.fillStyle = 'rgba(255,255,255,0.75)';
+        ctx.fillText('ANONGAME \u00b7 QUIZ \u00b7 DEVINETTES', W / 2, fy + 24);
         ctx.font = font(500, 10);
-        ctx.fillStyle = '#d1d5db';
-        ctx.fillText('Jouer n\u2019a jamais \u00e9t\u00e9 aussi anonyme', W / 2, fy + 40);
+        ctx.fillStyle = 'rgba(255,255,255,0.5)';
+        ctx.fillText('Jouer n\u2019a jamais \u00e9t\u00e9 aussi anonyme', W / 2, fy + 42);
     }
 
     ctx.restore();
