@@ -32,5 +32,7 @@
                 {{ $slot }}
             </main>
         </div>
+
+        @include('layouts.sw-cleanup')
     </body>
 </html>

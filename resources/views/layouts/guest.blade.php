@@ -38,5 +38,7 @@
 
             <p class="relative mt-8 text-white/60 text-xs">© {{ date('Y') }} AnonGame · Jouer n'a jamais été aussi anonyme</p>
         </div>
+
+        @include('layouts.sw-cleanup')
     </body>
 </html>
