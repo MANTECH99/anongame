@@ -1,4 +1,4 @@
-const CACHE_NAME = 'anongame-v7';
+const CACHE_NAME = 'anongame-v8';
 const APP_SHELL = [
     '/icons/icon-192x192.png',
     '/icons/icon-512x512.png',
@@ -17,10 +17,9 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
     event.waitUntil(
+        // Delete EVERY old cache (v5/v6/v7...) so no stale HTML page ever survives.
         caches.keys().then((keys) =>
-            Promise.all(
-                keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
-            )
+            Promise.all(keys.map((key) => caches.delete(key)))
         ).then(() => self.clients.claim())
     );
 });
@@ -32,16 +31,22 @@ self.addEventListener('fetch', (event) => {
 
     const url = new URL(request.url);
 
-    // Never cache HTML pages (they contain per-user/session content) nor sw.js.
+    // NEVER cache HTML pages (they contain per-user/session content).
+    const hasExtension = /\.\w{2,5}(\?|$)/.test(url.pathname);
     const isHtml = request.headers.get('accept')?.includes('text/html')
-        || url.pathname === '/'
-        || !url.pathname.includes('.');
-    if (isHtml || url.pathname.endsWith('/sw.js') || url.pathname === '/manifest.webmanifest') {
-        event.respondWith(fetch(request));
+        || !hasExtension;
+
+    if (isHtml) {
+        // Serve straight from network. Also proactively purge any cached copy.
+        event.respondWith(
+            caches.open(CACHE_NAME).then((cache) =>
+                cache.delete(request).catch(() => {}).then(() => fetch(request))
+            )
+        );
         return;
     }
 
-    // Assets (js/css/images/icons): stale-while-revalidate.
+    // Assets (js/css/images/fonts) only: stale-while-revalidate.
     event.respondWith(
         caches.match(request).then((cached) => {
             const fetchPromise = fetch(request)
