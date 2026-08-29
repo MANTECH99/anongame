@@ -1,8 +1,5 @@
-const CACHE_NAME = 'anongame-v6';
+const CACHE_NAME = 'anongame-v7';
 const APP_SHELL = [
-    '/',
-    '/quiz',
-    '/devinette',
     '/icons/icon-192x192.png',
     '/icons/icon-512x512.png',
     '/icons/maskable-192x192.png',
@@ -33,6 +30,18 @@ self.addEventListener('fetch', (event) => {
 
     if (request.method !== 'GET') return;
 
+    const url = new URL(request.url);
+
+    // Never cache HTML pages (they contain per-user/session content) nor sw.js.
+    const isHtml = request.headers.get('accept')?.includes('text/html')
+        || url.pathname === '/'
+        || !url.pathname.includes('.');
+    if (isHtml || url.pathname.endsWith('/sw.js') || url.pathname === '/manifest.webmanifest') {
+        event.respondWith(fetch(request));
+        return;
+    }
+
+    // Assets (js/css/images/icons): stale-while-revalidate.
     event.respondWith(
         caches.match(request).then((cached) => {
             const fetchPromise = fetch(request)
@@ -44,7 +53,6 @@ self.addEventListener('fetch', (event) => {
                     return response;
                 })
                 .catch(() => cached);
-
             return cached || fetchPromise;
         })
     );
