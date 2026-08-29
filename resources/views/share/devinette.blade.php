@@ -7,7 +7,7 @@
 
             <div class="bg-gray-50 dark:bg-gray-700/40 rounded-xl p-3 mb-6">
                 <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">Lien du défi</p>
-                <button onclick="navigator.clipboard.writeText('{{ $url }}').then(()=>this.textContent='✓ Copié !');" class="w-full text-left font-mono text-xs text-rose-600 break-all">{{ $url }}</button>
+                <button onclick="navigator.clipboard.writeText('{{ $url }}').then(()=>this.textContent='✓ Copié !');" class="w-full text-left font-mono text-xs text-emerald-600 break-all">{{ $url }}</button>
             </div>
 
             <a href="https://wa.me/?text={{ urlencode($text) }}" target="_blank" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl transition inline-flex items-center justify-center gap-2 mb-4">

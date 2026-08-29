@@ -96,11 +96,11 @@ function generateCardCanvas({ message = '', sender = '', reply = null, withFoote
     roundRect(ctx, 0, 0, W, H, RADIUS);
     ctx.clip();
 
-    // header gradient (rose -> violet)
+    // header gradient (WhatsApp green)
     const grad = ctx.createLinearGradient(0, 0, 0, headerH);
-    grad.addColorStop(0, '#e11d48');
-    grad.addColorStop(0.5, '#db2777');
-    grad.addColorStop(1, '#7e22ce');
+    grad.addColorStop(0, '#25D366');
+    grad.addColorStop(0.5, '#128C7E');
+    grad.addColorStop(1, '#075E54');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, W, headerH);
 
@@ -113,7 +113,7 @@ function generateCardCanvas({ message = '', sender = '', reply = null, withFoote
     ctx.arc(6, headerH, 50, 0, Math.PI * 2);
     ctx.fill();
 
-    // message icon (white bubble, violet "?")
+    // message icon (white bubble, green "?")
     const badge = 54;
     const bx = (W - badge) / 2;
     const by = 20;
@@ -123,7 +123,7 @@ function generateCardCanvas({ message = '', sender = '', reply = null, withFoote
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.font = font(800, 33);
-    ctx.fillStyle = '#7c3aed';
+    ctx.fillStyle = '#075E54';
     ctx.fillText('?', W / 2, by + badge / 2 + 2);
 
     // header title (only "Bienvenue sur AnonGame")

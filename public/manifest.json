@@ -4,8 +4,8 @@
     "description": "Jeu de quiz, devinettes et messages anonymes au Sénégal",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#e11d48",
-    "theme_color": "#e11d48",
+    "background_color": "#075E54",
+    "theme_color": "#075E54",
     "orientation": "portrait",
     "icons": [
         {

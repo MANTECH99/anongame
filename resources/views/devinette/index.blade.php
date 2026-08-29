@@ -1,7 +1,7 @@
 <x-game-layout title="Devinettes">
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-2xl font-extrabold text-gray-800 dark:text-white">🤔 Devinettes</h1>
-        <a href="{{ route('devinette.create') }}" class="bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">+ Créer</a>
+        <a href="{{ route('devinette.create') }}" class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">+ Créer</a>
     </div>
 
     <!-- Filtres -->
@@ -21,7 +21,7 @@
         <a href="{{ route('devinette.show', $d->slug) }}" class="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm hover:shadow-md transition">
             <div class="flex items-start justify-between gap-2">
                 <h3 class="font-bold text-gray-800 dark:text-white">{{ $d->title }}</h3>
-                <span class="shrink-0 text-xs bg-purple-100 dark:bg-purple-900/40 dark:text-purple-300 text-purple-700 px-2 py-1 rounded-full">{{ $categories[$d->category] ?? $d->category }}</span>
+                <span class="shrink-0 text-xs bg-green-100 dark:bg-green-900/40 dark:text-green-300 text-green-700 px-2 py-1 rounded-full">{{ $categories[$d->category] ?? $d->category }}</span>
             </div>
             <p class="text-sm text-gray-500 dark:text-gray-400 mt-2 line-clamp-2">{{ $d->question }}</p>
             <div class="mt-3 text-xs text-gray-400">

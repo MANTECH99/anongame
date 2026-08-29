@@ -10,7 +10,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
         @vite(['resources/css/app.css'])
     </head>
-    <body class="font-sans antialiased bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-700 min-h-screen flex items-center justify-center p-4">
+    <body class="font-sans antialiased bg-gradient-to-br from-emerald-500 via-emerald-600 to-cyan-700 min-h-screen flex items-center justify-center p-4">
         <div class="w-full max-w-md">
             <div class="bg-white rounded-3xl shadow-2xl p-8 text-center">
                 <div class="text-6xl mb-4">✅</div>

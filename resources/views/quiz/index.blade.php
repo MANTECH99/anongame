@@ -1,7 +1,7 @@
 <x-game-layout title="Quiz">
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-2xl font-extrabold text-gray-800 dark:text-white">🎯 Quiz</h1>
-        <a href="{{ route('quiz.create') }}" class="bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">+ Créer</a>
+        <a href="{{ route('quiz.create') }}" class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">+ Créer</a>
     </div>
 
     <!-- Filtres -->
@@ -23,7 +23,7 @@
         <a href="{{ route('quiz.show', $quiz->slug) }}" class="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm hover:shadow-md transition">
             <div class="flex items-start justify-between gap-2">
                 <h3 class="font-bold text-gray-800 dark:text-white">{{ $quiz->title }}</h3>
-                <span class="shrink-0 text-xs bg-rose-100 dark:bg-rose-900/40 dark:text-rose-300 text-rose-700 px-2 py-1 rounded-full">{{ $categories[$quiz->category] ?? $quiz->category }}</span>
+                <span class="shrink-0 text-xs bg-emerald-100 dark:bg-emerald-900/40 dark:text-emerald-300 text-emerald-700 px-2 py-1 rounded-full">{{ $categories[$quiz->category] ?? $quiz->category }}</span>
             </div>
             <p class="text-sm text-gray-500 dark:text-gray-400 mt-2 line-clamp-2">{{ $quiz->description }}</p>
             <div class="flex items-center justify-between mt-4 text-xs text-gray-400">

@@ -9,15 +9,15 @@
         <h1 class="text-2xl font-extrabold text-gray-800 dark:text-white mb-1">Quiz : {{ $attempt->quiz->title }}</h1>
         <p class="text-gray-500 dark:text-gray-400 mb-6">Joué par <strong>{{ $attempt->player_name }}</strong></p>
 
-        <div class="text-5xl font-extrabold text-rose-600 mb-2">{{ $attempt->score }} <span class="text-2xl text-gray-400">/ {{ $attempt->total }}</span></div>
+        <div class="text-5xl font-extrabold text-emerald-600 mb-2">{{ $attempt->score }} <span class="text-2xl text-gray-400">/ {{ $attempt->total }}</span></div>
         <div class="text-gray-500 dark:text-gray-400 mb-2">{{ $percent }}% de bonnes réponses</div>
 
         <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-8">
-            <div class="bg-gradient-to-r from-rose-500 to-purple-600 h-3 rounded-full" style="width: {{ $percent }}%"></div>
+            <div class="bg-gradient-to-r from-emerald-500 to-green-600 h-3 rounded-full" style="width: {{ $percent }}%"></div>
         </div>
 
         <div class="flex flex-col gap-3">
-            <a href="{{ route('quiz.play', $attempt->quiz->slug) }}" class="bg-rose-600 hover:bg-rose-700 text-white font-semibold py-3 rounded-xl transition">🔄 Rejouer</a>
+            <a href="{{ route('quiz.play', $attempt->quiz->slug) }}" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl transition">🔄 Rejouer</a>
             <a href="{{ route('quiz.rankings', $attempt->quiz->slug) }}" class="bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 text-gray-700 dark:text-white font-semibold py-3 rounded-xl transition">🏆 Voir le classement</a>
 
             <div class="border-t border-gray-200 dark:border-gray-700 pt-4 mt-2">

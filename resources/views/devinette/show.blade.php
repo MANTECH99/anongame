@@ -1,13 +1,13 @@
 <x-game-layout :title="'Devinette - '.$devinette->title">
     <div class="mb-4">
-        <a href="{{ route('devinette.index') }}" class="text-sm text-rose-600">← Toutes les devinettes</a>
+        <a href="{{ route('devinette.index') }}" class="text-sm text-emerald-600">← Toutes les devinettes</a>
     </div>
 
     <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 sm:p-8 shadow-sm max-w-xl mx-auto">
-        <div class="text-xs bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 px-3 py-1 rounded-full inline-block mb-4">{{ $devinette->category }}</div>
+        <div class="text-xs bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 px-3 py-1 rounded-full inline-block mb-4">{{ $devinette->category }}</div>
         <h1 class="text-xl font-extrabold text-gray-800 dark:text-white mb-4">{{ $devinette->title }}</h1>
 
-        <div class="bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 rounded-2xl p-6 mb-6">
+        <div class="bg-gradient-to-br from-green-50 to-green-50 dark:from-green-900/20 dark:to-green-900/20 rounded-2xl p-6 mb-6">
             <p class="text-gray-700 dark:text-gray-200 text-lg font-medium leading-relaxed">{{ $devinette->question }}</p>
         </div>
 
@@ -22,7 +22,7 @@
                 @csrf
                 <input type="text" name="answer" required placeholder="Ta réponse..."
                     class="flex-1 text-sm border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-xl px-4 py-2.5">
-                <button class="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-5 rounded-xl transition">Répondre</button>
+                <button class="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 rounded-xl transition">Répondre</button>
             </form>
         </div>
 

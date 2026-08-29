@@ -1,6 +1,6 @@
 <x-game-layout :title="'Jouer - '.$quiz->title">
     <div class="mb-4">
-        <a href="{{ route('quiz.show', $quiz->slug) }}" class="text-sm text-rose-600">← Retour</a>
+        <a href="{{ route('quiz.show', $quiz->slug) }}" class="text-sm text-emerald-600">← Retour</a>
     </div>
 
     <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 sm:p-8 shadow-sm">
@@ -20,12 +20,12 @@
                 @foreach($quiz->questions as $index => $question)
                 <div class="border border-gray-200 dark:border-gray-700 rounded-2xl p-5">
                     <p class="font-semibold text-gray-800 dark:text-white mb-4">
-                        <span class="text-rose-600">{{ $index + 1 }}.</span> {{ $question->question }}
+                        <span class="text-emerald-600">{{ $index + 1 }}.</span> {{ $question->question }}
                     </p>
                     <div class="space-y-2">
                         @foreach($question->options as $optIndex => $option)
                         <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                            <input type="radio" name="answers[{{ $question->id }}]" value="{{ $optIndex }}" class="accent-rose-600" required>
+                            <input type="radio" name="answers[{{ $question->id }}]" value="{{ $optIndex }}" class="accent-emerald-600" required>
                             <span class="text-sm text-gray-700 dark:text-gray-300">{{ $option }}</span>
                         </label>
                         @endforeach
@@ -34,7 +34,7 @@
                 @endforeach
             </div>
 
-            <button type="submit" class="mt-6 w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-xl transition">Valider mes réponses ✅</button>
+            <button type="submit" class="mt-6 w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition">Valider mes réponses ✅</button>
         </form>
     </div>
 </x-game-layout>

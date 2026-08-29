@@ -59,11 +59,11 @@
             </template>
 
             <button type="button" @click="questions.push({ question: '', options: ['', '', '', ''], correct: 0 })"
-                class="w-full border-2 border-dashed border-rose-300 text-rose-600 font-semibold py-3 rounded-xl hover:bg-rose-50 transition">
+                class="w-full border-2 border-dashed border-emerald-300 text-emerald-600 font-semibold py-3 rounded-xl hover:bg-emerald-50 transition">
                 + Ajouter une question
             </button>
 
-            <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-xl transition">Publier le quiz</button>
+            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition">Publier le quiz</button>
         </form>
     </div>
 </x-game-layout>

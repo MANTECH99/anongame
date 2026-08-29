@@ -1,6 +1,6 @@
 <x-game-layout :title="'Messages - '.$link->title">
     <div class="mb-4">
-        <a href="{{ route('anonymous.dashboard') }}" class="text-sm text-rose-600">← Mes liens</a>
+        <a href="{{ route('anonymous.dashboard') }}" class="text-sm text-emerald-600">← Mes liens</a>
     </div>
 
     @if($link->messages->count())
@@ -14,17 +14,17 @@
             'time' => \Illuminate\Support\Carbon::parse($message->created_at)->diffForHumans(),
             'read' => (bool) $message->is_read,
         ])"
-            class="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm cursor-pointer hover:shadow-md transition {{ $message->is_read ? '' : 'border-2 border-rose-200 dark:border-rose-800' }}">
+            class="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm cursor-pointer hover:shadow-md transition {{ $message->is_read ? '' : 'border-2 border-emerald-200 dark:border-emerald-800' }}">
             <div class="flex items-center justify-between mb-2">
                 <div class="text-xs text-gray-400">
-                    <span class="{{ $message->is_read ? '' : 'font-semibold text-rose-600' }}">{{ $message->sender_name }}</span>
+                    <span class="{{ $message->is_read ? '' : 'font-semibold text-emerald-600' }}">{{ $message->sender_name }}</span>
                     · {{ \Illuminate\Support\Carbon::parse($message->created_at)->diffForHumans() }}
                 </div>
                 <div class="flex items-center gap-2">
                     @if(!$message->is_read)
-                    <span class="text-xs bg-rose-100 text-rose-700 px-2 py-0.5 rounded-full font-semibold">Nouveau</span>
+                    <span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-semibold">Nouveau</span>
                     @endif
-                    <span class="text-xs text-rose-500 font-semibold">Voir →</span>
+                    <span class="text-xs text-emerald-500 font-semibold">Voir →</span>
                 </div>
             </div>
             <p class="text-gray-700 dark:text-gray-300 line-clamp-2">{{ $message->content }}</p>
@@ -40,16 +40,16 @@
                 </div>
 
                 <div class="px-5 text-xs text-gray-400 mb-3">
-                    <span class="font-semibold text-rose-500" x-text="selected.sender"></span> · <span x-text="selected.time"></span>
+                    <span class="font-semibold text-emerald-500" x-text="selected.sender"></span> · <span x-text="selected.time"></span>
                 </div>
 
                 <!-- Shareable image card (preview) -->
                 <div x-ref="shareCard" :data-message="selected.content" :data-sender="selected.sender" class="mx-auto max-w-[300px] rounded-3xl overflow-hidden shadow-lg ring-1 ring-black/5 flex flex-col min-h-[360px]">
-                    <div class="relative bg-gradient-to-r from-rose-600 via-pink-600 to-purple-700 px-6 py-5 text-center overflow-hidden">
+                    <div class="relative bg-gradient-to-r from-emerald-600 via-emerald-600 to-green-700 px-6 py-5 text-center overflow-hidden">
                         <div class="absolute -top-6 -right-8 w-24 h-24 rounded-full bg-white/10"></div>
                         <div class="absolute -bottom-8 -left-8 w-28 h-28 rounded-full bg-white/10"></div>
                         <div class="relative">
-                            <div class="w-[54px] h-[54px] mx-auto mb-2 rounded-2xl bg-white text-violet-700 text-3xl font-extrabold flex items-center justify-center shadow-lg">?</div>
+                            <div class="w-[54px] h-[54px] mx-auto mb-2 rounded-2xl bg-white text-green-700 text-3xl font-extrabold flex items-center justify-center shadow-lg">?</div>
                             <div class="text-white font-extrabold text-xl leading-tight drop-shadow">Bienvenue sur AnonGame</div>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                     </button>
 
                     <button @click="downloadMessageImage($refs.shareCard, 'message-anongame.png')"
-                        class="w-full border-2 border-rose-500 text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-900/20 font-bold py-3 rounded-xl transition inline-flex items-center justify-center gap-2">
+                        class="w-full border-2 border-emerald-500 text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 font-bold py-3 rounded-xl transition inline-flex items-center justify-center gap-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                         Télécharger l'image
                     </button>
@@ -92,7 +92,7 @@
                 <div class="w-10 h-1.5 rounded-full bg-gray-300 mx-auto mb-5"></div>
                 <h3 class="font-extrabold text-gray-800 dark:text-white mb-3">Répondre</h3>
                 <textarea x-model="reply" rows="4" placeholder="Écris ta réponse..."
-                    class="w-full text-sm border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-rose-500"></textarea>
+                    class="w-full text-sm border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
                 <button @click="replyOpen = false; shareMessageImage($refs.shareCard, { reply: reply })"
                     :disabled="!reply.trim()"
                     class="w-full bg-green-500 hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3 rounded-xl transition inline-flex items-center justify-center gap-2 mt-4">

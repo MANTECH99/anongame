@@ -1,10 +1,10 @@
 <x-game-layout :title="$quiz->title">
     <div class="mb-4">
-        <a href="{{ route('quiz.index') }}" class="text-sm text-rose-600">← Tous les quiz</a>
+        <a href="{{ route('quiz.index') }}" class="text-sm text-emerald-600">← Tous les quiz</a>
     </div>
 
     <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 sm:p-8 shadow-sm">
-        <div class="text-xs bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300 px-3 py-1 rounded-full inline-block mb-3">{{ $quiz->category }}</div>
+        <div class="text-xs bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 px-3 py-1 rounded-full inline-block mb-3">{{ $quiz->category }}</div>
         <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-800 dark:text-white mb-2">{{ $quiz->title }}</h1>
         <p class="text-gray-500 dark:text-gray-400 mb-6">{{ $quiz->description }}</p>
 
@@ -17,7 +17,7 @@
         </div>
 
         <div class="flex flex-wrap gap-3">
-            <a href="{{ route('quiz.play', $quiz->slug) }}" class="bg-rose-600 hover:bg-rose-700 text-white font-semibold px-6 py-3 rounded-xl transition">▶️ Jouer maintenant</a>
+            <a href="{{ route('quiz.play', $quiz->slug) }}" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl transition">▶️ Jouer maintenant</a>
             <a href="{{ route('quiz.rankings', $quiz->slug) }}" class="bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 font-semibold px-6 py-3 rounded-xl transition">🏆 Classement</a>
         </div>
     </div>

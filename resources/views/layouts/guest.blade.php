@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta name="theme-color" content="#e11d48">
+        <meta name="theme-color" content="#075E54">
         <link rel="manifest" href="{{ route('manifest') }}">
         <link rel="apple-touch-icon" href="/icons/apple-touch-icon-180x180.png">
         <link rel="icon" type="image/png" href="/icons/icon-192x192.png">
@@ -19,14 +19,14 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen relative flex flex-col items-center justify-center px-4 py-10 bg-gradient-to-br from-rose-600 via-pink-600 to-purple-700 overflow-hidden">
+        <div class="min-h-screen relative flex flex-col items-center justify-center px-4 py-10 bg-gradient-to-br from-emerald-600 via-emerald-600 to-green-700 overflow-hidden">
             <!-- Décoratif blobs -->
             <div class="absolute -top-24 -right-24 w-72 h-72 bg-white/10 rounded-full blur-2xl"></div>
-            <div class="absolute -bottom-32 -left-24 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-32 -left-24 w-96 h-96 bg-green-400/20 rounded-full blur-3xl"></div>
 
             <a href="{{ route('home') }}" class="relative flex flex-col items-center mb-8">
                 <img src="/icons/icon-192x192.png?v=3" alt="AnonGame" class="w-16 h-16 rounded-2xl shadow-2xl ring-4 ring-white/40 mb-3">
-                <span class="text-white font-extrabold text-2xl">Anon<span class="text-amber-300">Game</span></span>
+                <span class="text-white font-extrabold text-2xl">Anon<span class="text-emerald-300">Game</span></span>
                 <span class="text-white/70 text-sm mt-1">Quiz · Devinettes · Anonyme 🇸🇳</span>
             </a>
 

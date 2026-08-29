@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta name="theme-color" content="#e11d48">
+        <meta name="theme-color" content="#075E54">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <meta name="apple-mobile-web-app-title" content="AnonGame">
@@ -47,7 +47,7 @@
                     <p class="font-semibold text-gray-800 text-sm mb-2">📲 Installe AnonGame sur ton téléphone</p>
                     <p class="text-xs text-gray-500 mb-3">Joue hors-ligne et accède à tes jeux plus vite.</p>
                     <div class="flex gap-2">
-                        <button id="pwa-install-btn" class="flex-1 bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold py-2 rounded-xl transition">Installer</button>
+                        <button id="pwa-install-btn" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold py-2 rounded-xl transition">Installer</button>
                         <button id="pwa-dismiss-btn" class="px-4 text-sm text-gray-600 font-semibold py-2 rounded-xl hover:bg-gray-100">Plus tard</button>
                     </div>
                 </div>

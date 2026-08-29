@@ -11,11 +11,11 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
         @vite(['resources/css/app.css'])
     </head>
-    <body class="font-sans antialiased bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-700 min-h-screen flex items-center justify-center p-4">
+    <body class="font-sans antialiased bg-gradient-to-br from-emerald-500 via-emerald-600 to-cyan-700 min-h-screen flex items-center justify-center p-4">
         <div class="w-full max-w-md">
             <div class="bg-white rounded-3xl shadow-2xl p-8">
                 <div class="text-center mb-6">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-3xl mb-4">💬</div>
+                    <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white text-3xl mb-4">💬</div>
                     <h1 class="text-xl font-extrabold text-gray-800">Envoie un message anonyme</h1>
                     <p class="text-sm text-gray-500 mt-1">Reste anonyme, dis ce que tu penses vraiment.</p>
                 </div>

@@ -33,7 +33,7 @@
                     <option value="logique">Logique</option>
                 </select>
             </div>
-            <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-xl transition">Publier la devinette</button>
+            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition">Publier la devinette</button>
         </form>
     </div>
 </x-game-layout>

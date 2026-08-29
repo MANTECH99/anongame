@@ -1,8 +1,17 @@
 <script>
     // PWA Service Worker registration
+    // Force-describe any old/stale service worker so cached pages never survive.
     if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js').catch(() => {});
+        window.addEventListener('load', async () => {
+            try {
+                const registrations = await navigator.serviceWorker.getRegistrations();
+                for (const reg of registrations) {
+                    await reg.unregister();
+                }
+            } catch (e) { /* ignore */ }
+            try {
+                await navigator.serviceWorker.register('/sw.js');
+            } catch (e) { /* ignore */ }
         });
     }
 
