@@ -69,6 +69,8 @@ class AnonymousController extends Controller
 
     public function messages(AnonymousLink $link)
     {
+        abort_unless($link->user_id === auth()->id(), 403);
+
         $link->load('messages');
 
         $link->messages()->where('is_read', false)->update(['is_read' => true]);
@@ -78,6 +80,8 @@ class AnonymousController extends Controller
 
     public function toggle(AnonymousLink $link, Request $request)
     {
+        abort_unless($link->user_id === auth()->id(), 403);
+
         $link->update(['is_active' => ! $link->is_active]);
 
         if ($request->expectsJson()) {

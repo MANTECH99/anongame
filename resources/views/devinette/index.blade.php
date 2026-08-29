@@ -5,14 +5,14 @@
     </div>
 
     <!-- Filtres -->
-    <form method="GET" class="flex flex-wrap gap-2 mb-6 items-center">
-        <select name="category" class="text-sm border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-xl px-3 py-2 shrink-0">
+    <form method="GET" class="flex flex-col sm:flex-row sm:items-center gap-2 mb-6">
+        <select name="category" class="w-full sm:w-auto text-sm border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-xl px-3 py-2">
             <option value="all">Toutes catégories</option>
             @foreach($categories as $key => $label)
             <option value="{{ $key }}" {{ request('category') === $key ? 'selected' : '' }}>{{ $label }}</option>
             @endforeach
         </select>
-        <button class="shrink-0 whitespace-nowrap bg-gray-800 dark:bg-gray-700 text-white text-sm font-semibold px-4 py-2 rounded-xl">Filtrer</button>
+        <button class="shrink-0 whitespace-nowrap w-full sm:w-auto bg-gray-800 dark:bg-gray-700 text-white text-sm font-semibold px-4 py-2 rounded-xl">Filtrer</button>
     </form>
 
     @if($devinettes->count())
