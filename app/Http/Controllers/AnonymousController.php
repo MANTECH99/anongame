@@ -9,8 +9,17 @@ use Illuminate\Support\Str;
 
 class AnonymousController extends Controller
 {
+    protected function requireAuth(): void
+    {
+        if (! auth()->check()) {
+            abort(redirect()->guest(route('login')));
+        }
+    }
+
     public function dashboard()
     {
+        $this->requireAuth();
+
         $links = auth()->user()->anonymousLinks;
 
         return view('anonymous.dashboard', compact('links'));
@@ -18,6 +27,8 @@ class AnonymousController extends Controller
 
     public function store(Request $request)
     {
+        $this->requireAuth();
+
         $data = $request->validate([
             'title' => 'nullable|string|max:100',
         ]);
@@ -69,6 +80,8 @@ class AnonymousController extends Controller
 
     public function messages(AnonymousLink $link)
     {
+        $this->requireAuth();
+
         abort_unless($link->user_id === auth()->id(), 403);
 
         $link->load('messages');
@@ -80,6 +93,8 @@ class AnonymousController extends Controller
 
     public function toggle(AnonymousLink $link, Request $request)
     {
+        $this->requireAuth();
+
         abort_unless($link->user_id === auth()->id(), 403);
 
         $link->update(['is_active' => ! $link->is_active]);
