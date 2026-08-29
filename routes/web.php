@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/anon', [AnonymousController::class, 'store'])->name('anonymous.store');
     Route::get('/anon/link/{link}', [AnonymousController::class, 'messages'])->name('anonymous.messages');
     Route::patch('/anon/link/{link}/toggle', [AnonymousController::class, 'toggle'])->name('anonymous.toggle');
+    Route::match(['get', 'post'], '/share/anon/{slug}', [ShareController::class, 'anonymousLink'])->name('share.anonymous');
 });
 
 /* Public anonymous page */
@@ -56,7 +57,6 @@ Route::get('/anon/thanks/{slug}', [AnonymousController::class, 'thanks'])->name(
 /* ---------------- Partage WhatsApp ---------------- */
 Route::match(['get', 'post'], '/share/quiz/{quiz:slug}', [ShareController::class, 'quiz'])->name('share.quiz');
 Route::match(['get', 'post'], '/share/devinette/{devinette:slug}', [ShareController::class, 'devinette'])->name('share.devinette');
-Route::match(['get', 'post'], '/share/anon/{slug}', [ShareController::class, 'anonymousLink'])->name('share.anonymous');
 
 /* ---------------- Profile ---------------- */
 Route::middleware('auth')->group(function () {

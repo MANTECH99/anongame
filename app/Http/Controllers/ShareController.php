@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AnonymousLink;
 use App\Models\Devinette;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
@@ -46,6 +47,10 @@ class ShareController extends Controller
 
     public function anonymousLink(Request $request, string $slug)
     {
+        $link = AnonymousLink::where('slug', $slug)->firstOrFail();
+
+        abort_unless($link->user_id === auth()->id(), 404);
+
         $url = route('anonymous.send', $slug);
         $text = $request->input('text') ?: "💬 Envoie-moi un message anonyme ! (dis ce que tu penses vraiment) : {$url}";
 
