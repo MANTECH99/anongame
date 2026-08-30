@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\AnonymousLink;
 use App\Models\Devinette;
-use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -18,660 +17,299 @@ class DatabaseSeeder extends Seeder
     {
         $user = User::firstOrCreate(
             ['email' => 'admin@anongame.sn'],
-            [
-                'name' => 'Admin Sénégal',
-                'pseudo' => 'admin221',
-                'phone' => '771234567',
-                'password' => bcrypt('password'),
-            ]
+            ['name' => 'Admin Sénégal', 'pseudo' => 'admin221', 'phone' => '771234567', 'password' => bcrypt('password')]
         );
 
         AnonymousLink::firstOrCreate(
             ['user_id' => $user->id],
-            [
-                'slug' => 'admin221',
-                'title' => 'Admin Sénégal',
-                'is_active' => true,
-            ]
+            ['slug' => 'admin221', 'title' => 'Admin Sénégal', 'is_active' => true]
         );
 
-        // ---------- Quiz : Culture sénégalaise ----------
-        $quiz1 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Culture sénégalaise',
-            'description' => 'Teste ta connaissance de la culture du Sénégal ! 🇸🇳',
-            'category' => 'culture',
-            'slug' => 'culture-senegalaise-abc123',
-            'is_public' => true,
-            'plays' => 120,
-        ]);
-
-        $q1Data = [
+        // ---------- QUIZ ----------
+        $quizzes = [
             [
-                'question' => 'Quelle est la capitale du Sénégal ?',
-                'options' => ['Saint-Louis', 'Dakar', 'Thiès', 'Ziguinchor'],
-                'correct' => 1,
+                'title' => 'Culture sénégalaise',
+                'description' => 'Teste ta connaissance de la culture du Sénégal ! 🇸🇳',
+                'category' => 'culture',
+                'slug' => 'culture-senegalaise-abc123',
+                'plays' => 122,
+                'questions' => [
+                    ['question' => 'Quelle est la capitale du Sénégal ?', 'options' => array (  0 => 'Saint-Louis',  1 => 'Dakar',  2 => 'Thiès',  3 => 'Ziguinchor',), 'correct' => 1],
+                    ['question' => 'Quel plat est considéré comme le plat national sénégalais ?', 'options' => array (  0 => 'Yassa',  1 => 'Mafé',  2 => 'Thiéboudienne',  3 => 'Thiakry',), 'correct' => 2],
+                    ['question' => 'Quelle est la langue la plus parlée au Sénégal ?', 'options' => array (  0 => 'Français',  1 => 'Pulaar',  2 => 'Wolof',  3 => 'Sérère',), 'correct' => 2],
+                    ['question' => 'Quelle île est célèbre pour son festival de jazz ?', 'options' => array (  0 => 'Île de Gorée',  1 => 'Île Saint-Louis',  2 => 'Île de Ngor',  3 => 'Carabane',), 'correct' => 1],
+                    ['question' => 'Qui est le premier président du Sénégal ?', 'options' => array (  0 => 'Abdoulaye Wade',  1 => 'Léopold Sédar Senghor',  2 => 'Macky Sall',  3 => 'Abdou Diouf',), 'correct' => 1],
+                ],
             ],
             [
-                'question' => 'Quel plat est considéré comme le plat national sénégalais ?',
-                'options' => ['Yassa', 'Mafé', 'Thiéboudienne', 'Thiakry'],
-                'correct' => 2,
+                'title' => 'Football : les Lions de la Téranga',
+                'description' => 'Les champions d\'Afrique 2022 ! 🦁',
+                'category' => 'football',
+                'slug' => 'football-lions-teranga-def456',
+                'plays' => 310,
+                'questions' => [
+                    ['question' => 'En quelle année le Sénégal a-t-il remporté la CAN ?', 'options' => array (  0 => '2019',  1 => '2022',  2 => '2023',  3 => '2017',), 'correct' => 1],
+                    ['question' => 'Qui est le capitaine des Lions de la Téranga ?', 'options' => array (  0 => 'Édouard Mendy',  1 => 'Sadio Mané',  2 => 'Kalidou Koulibaly',  3 => 'Idrissa Gueye',), 'correct' => 2],
+                    ['question' => 'Quel club a révélé Sadio Mané en Europe ?', 'options' => array (  0 => 'Liverpool',  1 => 'Southampton',  2 => 'RB Salzbourg',  3 => 'Metz',), 'correct' => 2],
+                    ['question' => 'Qui était le sélectionneur lors du titre de la CAN 2022 ?', 'options' => array (  0 => 'Aliou Cissé',  1 => 'Pape Thiaw',  2 => 'Habib Beye',  3 => 'Alain Giresse',), 'correct' => 0],
+                ],
             ],
             [
-                'question' => 'Quelle est la langue la plus parlée au Sénégal ?',
-                'options' => ['Français', 'Pulaar', 'Wolof', 'Sérère'],
-                'correct' => 2,
+                'title' => 'Géographie du Sénégal',
+                'description' => 'Connais-tu bien les régions et fleuves ? 🗺️',
+                'category' => 'geographie',
+                'slug' => 'geographie-senegal-ghi789',
+                'plays' => 74,
+                'questions' => [
+                    ['question' => 'Quel fleuve forme la frontière nord du Sénégal ?', 'options' => array (  0 => 'Fleuve Gambie',  1 => 'Fleuve Sénégal',  2 => 'Fleuve Casamance',  3 => 'Fleuve Saloum',), 'correct' => 1],
+                    ['question' => 'Quel pays est enchâssé dans le territoire sénégalais ?', 'options' => array (  0 => 'Mali',  1 => 'Guinée',  2 => 'Gambie',  3 => 'Mauritanie',), 'correct' => 2],
+                    ['question' => 'Quel lac est célèbre pour sa couleur rose ?', 'options' => array (  0 => 'Lac de Guiers',  1 => 'Lac Rose (Retba)',  2 => 'Lac Tamma',  3 => 'Lac des Vallées',), 'correct' => 1],
+                ],
             ],
             [
-                'question' => 'Quelle île est célèbre pour son festival de jazz ?',
-                'options' => ['Île de Gorée', 'Île Saint-Louis', 'Île de Ngor', 'Carabane'],
-                'correct' => 1,
+                'title' => 'Culture générale mondiale',
+                'description' => 'Un peu de tout pour tester ta culture ! 🌍',
+                'category' => 'general',
+                'slug' => 'culture-generale-monde-jkl012',
+                'plays' => 205,
+                'questions' => [
+                    ['question' => 'Combien y a-t-il de continents sur Terre ?', 'options' => array (  0 => '5',  1 => '6',  2 => '7',  3 => '8',), 'correct' => 2],
+                    ['question' => 'Quel est le plus grand océan du monde ?', 'options' => array (  0 => 'Atlantique',  1 => 'Pacifique',  2 => 'Indien',  3 => 'Arctique',), 'correct' => 1],
+                    ['question' => 'Quelle planète est surnommée la planète rouge ?', 'options' => array (  0 => 'Vénus',  1 => 'Jupiter',  2 => 'Mars',  3 => 'Saturne',), 'correct' => 2],
+                    ['question' => 'Combien de couleurs y a-t-il dans un arc-en-ciel ?', 'options' => array (  0 => '5',  1 => '6',  2 => '7',  3 => '8',), 'correct' => 2],
+                    ['question' => 'Quel animal est le plus grand du monde ?', 'options' => array (  0 => 'Éléphant',  1 => 'Baleine bleue',  2 => 'Girafe',  3 => 'Requin blanc',), 'correct' => 1],
+                ],
             ],
             [
-                'question' => 'Qui est le premier président du Sénégal ?',
-                'options' => ['Abdoulaye Wade', 'Léopold Sédar Senghor', 'Macky Sall', 'Abdou Diouf'],
-                'correct' => 1,
+                'title' => 'Science et nature',
+                'description' => 'Les mystères de la science à ta portée ! 🔬',
+                'category' => 'science',
+                'slug' => 'science-nature-abcxyz',
+                'plays' => 98,
+                'questions' => [
+                    ['question' => 'Quel gaz les plantes absorbent-elles pour la photosynthèse ?', 'options' => array (  0 => 'Oxygène',  1 => 'Azote',  2 => 'Dioxyde de carbone',  3 => 'Hydrogène',), 'correct' => 2],
+                    ['question' => 'Combien de planètes font partie du système solaire (hors Pluton) ?', 'options' => array (  0 => '7',  1 => '8',  2 => '9',  3 => '10',), 'correct' => 1],
+                    ['question' => 'Quel est le symbole chimique de l\'eau ?', 'options' => array (  0 => 'O2',  1 => 'H2O',  2 => 'CO2',  3 => 'NaCl',), 'correct' => 1],
+                    ['question' => 'Quelle est la vitesse de la lumière ?', 'options' => array (  0 => '300 000 km/s',  1 => '150 000 km/s',  2 => '1 million km/s',  3 => '30 000 km/s',), 'correct' => 0],
+                ],
+            ],
+            [
+                'title' => 'Histoire de l\'Afrique',
+                'description' => 'Les grands moments de l\'histoire africaine ! 📜',
+                'category' => 'histoire',
+                'slug' => 'histoire-afrique-xyz987',
+                'plays' => 150,
+                'questions' => [
+                    ['question' => 'Quelle ancienne civilisation africaine a bâti les pyramides de Gizeh ?', 'options' => array (  0 => 'Nubie',  1 => 'Égypte',  2 => 'Axoum',  3 => 'Mali',), 'correct' => 1],
+                    ['question' => 'Qui est le célèbre empereur de l\'empire du Mali connu pour son pèlerinage à La Mecque ?', 'options' => array (  0 => 'Soundiata Keïta',  1 => 'Mansa Moussa',  2 => 'Askia Mohammed',  3 => 'Sundiata',), 'correct' => 1],
+                    ['question' => 'Quel est l\'ancien nom de la ville de Bobo-Dioulasso ?', 'options' => array (  0 => 'Sylla',  1 => 'Kong',  2 => 'Sya',  3 => 'Wagadougou',), 'correct' => 2],
+                ],
+            ],
+            [
+                'title' => 'Sport : le monde',
+                'description' => 'Teste tes connaissances sportives ! ⚽',
+                'category' => 'sport',
+                'slug' => 'sport-monde-q7abcd',
+                'plays' => 88,
+                'questions' => [
+                    ['question' => 'Quel pays a remporté la Coupe du Monde 2018 ?', 'options' => array (  0 => 'Brésil',  1 => 'Allemagne',  2 => 'France',  3 => 'Argentine',), 'correct' => 2],
+                    ['question' => 'Combien de joueurs y a-t-il dans une équipe de football sur le terrain ?', 'options' => array (  0 => '10',  1 => '11',  2 => '12',  3 => '9',), 'correct' => 1],
+                    ['question' => 'Dans quel sport utilise-t-on une raquette et un volant ?', 'options' => array (  0 => 'Tennis',  1 => 'Badminton',  2 => 'Squash',  3 => 'Padel',), 'correct' => 1],
+                    ['question' => 'Qui est surnommé le GOAT au basketball ?', 'options' => array (  0 => 'LeBron James',  1 => 'Michael Jordan',  2 => 'Kobe Bryant',  3 => 'Shaquille O\'Neal',), 'correct' => 1],
+                ],
+            ],
+            [
+                'title' => 'Musique africaine',
+                'description' => 'Les grands noms de la musique africaine ! 🎵',
+                'category' => 'musique',
+                'slug' => 'musique-africaine-q8efgh',
+                'plays' => 131,
+                'questions' => [
+                    ['question' => 'Quel chanteur sénégalais est surnommé le « Roi du Mbalax » ?', 'options' => array (  0 => 'Ismaël Lô',  1 => 'Youssou N\'Dour',  2 => 'Baaba Maal',  3 => 'Cheikh Lô',), 'correct' => 1],
+                    ['question' => 'De quel pays vient l\'artiste Sarkodie ?', 'options' => array (  0 => 'Nigeria',  1 => 'Ghana',  2 => 'Sénégal',  3 => 'Côte d\'Ivoire',), 'correct' => 1],
+                    ['question' => 'Quelle artiste nigériane est connue sous le nom de « Queen of Afrobeats » ?', 'options' => array (  0 => 'Wizkid',  1 => 'Davido',  2 => 'Yemi Alade',  3 => 'Tiwa Savage',), 'correct' => 3],
+                    ['question' => 'Quel instrument est un tambour traditionnel africain ?', 'options' => array (  0 => 'Kora',  1 => 'Balafon',  2 => 'Djembe',  3 => 'Cora',), 'correct' => 2],
+                ],
+            ],
+            [
+                'title' => 'Informatique et Internet',
+                'description' => 'Le monde du numérique ! 💻',
+                'category' => 'informatique',
+                'slug' => 'informatique-internet-q9wxyz',
+                'plays' => 75,
+                'questions' => [
+                    ['question' => 'Que signifie « WWW » ?', 'options' => array (  0 => 'World Web Wide',  1 => 'World Wide Web',  2 => 'Web World Wide',  3 => 'Wide Web World',), 'correct' => 1],
+                    ['question' => 'Quel est le langage de programmation créé par Rasmus Lerdorf ?', 'options' => array (  0 => 'JavaScript',  1 => 'Python',  2 => 'PHP',  3 => 'Java',), 'correct' => 2],
+                    ['question' => 'Quelle entreprise a créé le système d\'exploitation Windows ?', 'options' => array (  0 => 'Apple',  1 => 'Microsoft',  2 => 'Google',  3 => 'IBM',), 'correct' => 1],
+                    ['question' => 'Que signifie l\'acronyme « HTML » ?', 'options' => array (  0 => 'HyperText Markup Language',  1 => 'Home Tool Markup Language',  2 => 'Hyperlink Text Model Language',  3 => 'High Tech Modern Language',), 'correct' => 0],
+                ],
+            ],
+            [
+                'title' => 'Géographie du monde',
+                'description' => 'Les merveilles de la planète ! 🌎',
+                'category' => 'geographie',
+                'slug' => 'geographie-monde-q10abcd',
+                'plays' => 95,
+                'questions' => [
+                    ['question' => 'Quel est le plus long fleuve du monde ?', 'options' => array (  0 => 'Amazon',  1 => 'Nil',  2 => 'Yangtsé',  3 => 'Mississippi',), 'correct' => 0],
+                    ['question' => 'Quelle est la plus grande désert du monde (hors pôles) ?', 'options' => array (  0 => 'Gobi',  1 => 'Sahara',  2 => 'Kalahari',  3 => 'Atacama',), 'correct' => 1],
+                    ['question' => 'Quel est le plus haut sommet du monde ?', 'options' => array (  0 => 'K2',  1 => 'Mont Everest',  2 => 'Kangchenjunga',  3 => 'Mont Blanc',), 'correct' => 1],
+                    ['question' => 'Combien de pays font partie de l\'Union africaine ?', 'options' => array (  0 => '50',  1 => '54',  2 => '55',  3 => '57',), 'correct' => 2],
+                ],
+            ],
+            [
+                'title' => 'Cinéma et séries',
+                'description' => 'À toi de jouer ! 🎬',
+                'category' => 'cinema',
+                'slug' => 'cinema-series-q11wxyz',
+                'plays' => 110,
+                'questions' => [
+                    ['question' => 'Qui joue Iron Man dans le MCU ?', 'options' => array (  0 => 'Chris Evans',  1 => 'Robert Downey Jr',  2 => 'Chris Hemsworth',  3 => 'Mark Ruffalo',), 'correct' => 1],
+                    ['question' => 'Quel film est célèbre pour la phrase « May the Force be with you » ?', 'options' => array (  0 => 'Star Wars',  1 => 'Star Trek',  2 => 'Avatar',  3 => 'Interstellar',), 'correct' => 0],
+                    ['question' => 'Dans quelle ville se déroule la série « Lupin » ?', 'options' => array (  0 => 'Londres',  1 => 'Paris',  2 => 'Rome',  3 => 'New York',), 'correct' => 1],
+                    ['question' => 'Quel dessin animé met en scène un garçon ninja ?', 'options' => array (  0 => 'Dragon Ball',  1 => 'Naruto',  2 => 'One Piece',  3 => 'Bleach',), 'correct' => 1],
+                ],
+            ],
+            [
+                'title' => 'Cuisine du monde',
+                'description' => 'Les saveurs de la planète ! 🍽️',
+                'category' => 'cuisine',
+                'slug' => 'cuisine-monde-q12abcd',
+                'plays' => 64,
+                'questions' => [
+                    ['question' => 'Dans quel pays est née la pizza ?', 'options' => array (  0 => 'France',  1 => 'Espagne',  2 => 'Italie',  3 => 'Grèce',), 'correct' => 2],
+                    ['question' => 'Quel plat japonais se compose de riz vinaigré et de poisson cru ?', 'options' => array (  0 => 'Ramen',  1 => 'Sushi',  2 => 'Tempura',  3 => 'Udon',), 'correct' => 1],
+                    ['question' => 'Quel est le plat typique du Sénégal à base de mil ?', 'options' => array (  0 => 'Thiéboudienne',  1 => 'Thiakry',  2 => 'Yassa',  3 => 'Mafé',), 'correct' => 1],
+                    ['question' => 'Quelle épice donne la couleur jaune au curry ?', 'options' => array (  0 => 'Paprika',  1 => 'Curcuma',  2 => 'Safran',  3 => 'Cumin',), 'correct' => 1],
+                ],
+            ],
+            [
+                'title' => 'Science-fiction et imaginaire',
+                'description' => 'L\'univers de l\'imaginaire ! 🚀',
+                'category' => 'general',
+                'slug' => 'science-fiction-q13wxyz',
+                'plays' => 70,
+                'questions' => [
+                    ['question' => 'Quel vaisseau a emmené le premier homme sur la Lune ?', 'options' => array (  0 => 'Apollo 11',  1 => 'Apollo 13',  2 => 'Discovery',  3 => 'Columbus',), 'correct' => 0],
+                    ['question' => 'Qui a écrit « Le Petit Prince » ?', 'options' => array (  0 => 'Victor Hugo',  1 => 'Antoine de Saint-Exupéry',  2 => 'Jules Verne',  3 => 'Albert Camus',), 'correct' => 1],
+                    ['question' => 'Dans « Harry Potter », quelle école apprend-on la magie ?', 'options' => array (  0 => 'Hogwarts',  1 => 'Beauxbatons',  2 => 'Durmstrang',  3 => 'Poudlard',), 'correct' => 3],
+                    ['question' => 'Quel héros porte un costume bleu et une cape rouge ?', 'options' => array (  0 => 'Batman',  1 => 'Superman',  2 => 'Spiderman',  3 => 'Flash',), 'correct' => 1],
+                ],
+            ],
+            [
+                'title' => 'Sénégal : les hauts lieux',
+                'description' => 'Explore le Sénégal ! 🗺️',
+                'category' => 'geographie',
+                'slug' => 'senegal-hauts-lieux-q14abcd',
+                'plays' => 58,
+                'questions' => [
+                    ['question' => 'Où se trouve la célèbre Mosquée de la Divinité ?', 'options' => array (  0 => 'Touba',  1 => 'Dakar',  2 => 'Saint-Louis',  3 => 'Kaolack',), 'correct' => 0],
+                    ['question' => 'Quelle ville est surnommée « la Perle de la Casamance » ?', 'options' => array (  0 => 'Ziguinchor',  1 => 'Kolda',  2 => 'Bignona',  3 => 'Oussouye',), 'correct' => 0],
+                    ['question' => 'Quel est le plus grand port du Sénégal ?', 'options' => array (  0 => 'Port de Saint-Louis',  1 => 'Port de Dakar',  2 => 'Port de Ziguinchor',  3 => 'Port de Kaolack',), 'correct' => 1],
+                    ['question' => 'Quelle réserve abrite le delta du Saloum ?', 'options' => array (  0 => 'Réserve de Bandia',  1 => 'Parc du Niokolo-Koba',  2 => 'Réserve du Saloum',  3 => 'Réserve de Fathala',), 'correct' => 2],
+                ],
+            ],
+            [
+                'title' => 'Économie et argent',
+                'description' => 'Le monde des finances ! 💰',
+                'category' => 'economie',
+                'slug' => 'economie-argent-q15wxyz',
+                'plays' => 40,
+                'questions' => [
+                    ['question' => 'Quelle est la monnaie de l\'Union économique ouest-africaine (UEMOA) ?', 'options' => array (  0 => 'Naira',  1 => 'Franc CFA',  2 => 'Cedi',  3 => 'Dirham',), 'correct' => 1],
+                    ['question' => 'Quel est le plus grand centre financier du monde ?', 'options' => array (  0 => 'Londres',  1 => 'New York',  2 => 'Tokyo',  3 => 'Hong Kong',), 'correct' => 1],
+                    ['question' => 'Que signifie l\'acronyme « PIB » ?', 'options' => array (  0 => 'Produit Intérieur Brut',  1 => 'Produit International Brut',  2 => 'Prix Indice Boursier',  3 => 'Produit Interne Bancaire',), 'correct' => 0],
+                    ['question' => 'Quel organisme s\'occupe du commerce mondial ?', 'options' => array (  0 => 'FMI',  1 => 'OMC',  2 => 'Banque mondiale',  3 => 'ONU',), 'correct' => 1],
+                ],
+            ],
+            [
+                'title' => 'Nature et animaux',
+                'description' => 'Le règne animal ! 🦁',
+                'category' => 'nature',
+                'slug' => 'nature-animaux-q16abcd',
+                'plays' => 85,
+                'questions' => [
+                    ['question' => 'Quel animal est le plus rapide du monde ?', 'options' => array (  0 => 'Guépard',  1 => 'Lion',  2 => 'Antilope',  3 => 'Panthère',), 'correct' => 0],
+                    ['question' => 'Combien de cœurs possède une pieuvre ?', 'options' => array (  0 => '1',  1 => '2',  2 => '3',  3 => '4',), 'correct' => 2],
+                    ['question' => 'Quel oiseau ne peut pas voler ?', 'options' => array (  0 => 'Aigle',  1 => 'Autruche',  2 => 'Pigeon',  3 => 'Faucon',), 'correct' => 1],
+                    ['question' => 'Quel est le mammifère le plus grand du monde ?', 'options' => array (  0 => 'Éléphant d\'Afrique',  1 => 'Baleine bleue',  2 => 'Girafe',  3 => 'Rhinocéros',), 'correct' => 1],
+                ],
+            ],
+            [
+                'title' => 'Personnalités sénégalaises',
+                'description' => 'Connais-tu ces grands Sénégalais ? ⭐',
+                'category' => 'culture',
+                'slug' => 'personnalites-senegalaises-q17wxyz',
+                'plays' => 120,
+                'questions' => [
+                    ['question' => 'Quel Sénégalais a été secrétaire général de l\'ONU ?', 'options' => array (  0 => 'Abdou Diouf',  1 => 'Kofi Annan',  2 => 'Boutros Boutros-Ghali',  3 => 'Ban Ki-moon',), 'correct' => 0],
+                    ['question' => 'Qui a écrit le célèbre roman « Une si longue lettre » ?', 'options' => array (  0 => 'Aminata Sow Fall',  1 => 'Mariama Bâ',  2 => 'Ken Bugul',  3 => 'Calixthe Beyala',), 'correct' => 1],
+                    ['question' => 'Quel chanteur a composé « 7 Seconds » en duo avec Neneh Cherry ?', 'options' => array (  0 => 'Ismaël Lô',  1 => 'Youssou N\'Dour',  2 => 'Baaba Maal',  3 => 'Cheikh Lô',), 'correct' => 1],
+                    ['question' => 'Qui est le premier président de la République du Sénégal ?', 'options' => array (  0 => 'Abdoulaye Wade',  1 => 'Léopold Sédar Senghor',  2 => 'Macky Sall',  3 => 'Mamadou Dia',), 'correct' => 1],
+                ],
+            ],
+            [
+                'title' => 'Santé et corps humain',
+                'description' => 'Découvre ton corps ! 🩺',
+                'category' => 'science',
+                'slug' => 'sante-corps-q18abcd',
+                'plays' => 55,
+                'questions' => [
+                    ['question' => 'Combien d\'os possède un adulte humain ?', 'options' => array (  0 => '200',  1 => '206',  2 => '210',  3 => '215',), 'correct' => 1],
+                    ['question' => 'Quel organe est chargé de la circulation du sang ?', 'options' => array (  0 => 'Poumons',  1 => 'Cœur',  2 => 'Foie',  3 => 'Reins',), 'correct' => 1],
+                    ['question' => 'Combien de dents possède un adulte ?', 'options' => array (  0 => '28',  1 => '30',  2 => '32',  3 => '36',), 'correct' => 2],
+                    ['question' => 'Quel est le plus grand organe du corps humain ?', 'options' => array (  0 => 'Cerveau',  1 => 'Peau',  2 => 'Foie',  3 => 'Intestin',), 'correct' => 1],
+                ],
+            ],
+            [
+                'title' => 'Littérature et histoires',
+                'description' => 'Le monde des livres ! 📚',
+                'category' => 'general',
+                'slug' => 'litterature-histoires-q19wxyz',
+                'plays' => 63,
+                'questions' => [
+                    ['question' => 'Qui a écrit « Le Comte de Monte-Cristo » ?', 'options' => array (  0 => 'Victor Hugo',  1 => 'Alexandre Dumas',  2 => 'Émile Zola',  3 => 'Gustave Flaubert',), 'correct' => 1],
+                    ['question' => 'Quel est le premier livre de la Bible ?', 'options' => array (  0 => 'Exode',  1 => 'Genèse',  2 => 'Lévitique',  3 => 'Psaumes',), 'correct' => 1],
+                    ['question' => 'Qui est l\'auteur de « Bel-Ami » ?', 'options' => array (  0 => 'Guy de Maupassant',  1 => 'Stendhal',  2 => 'Honoré de Balzac',  3 => 'Marcel Proust',), 'correct' => 0],
+                    ['question' => 'Quel conte met en scène un petit chaperon rouge ?', 'options' => array (  0 => 'Blanche-Neige',  1 => 'Le petit Chaperon rouge',  2 => 'Cendrillon',  3 => 'Hansel et Gretel',), 'correct' => 1],
+                ],
+            ],
+            [
+                'title' => 'Actualités et faits divers',
+                'description' => 'Les faits marquants ! 📰',
+                'category' => 'general',
+                'slug' => 'actualites-faits-q20abcd',
+                'plays' => 90,
+                'questions' => [
+                    ['question' => 'En quelle année a eu lieu la première pandémie COVID-19 ?', 'options' => array (  0 => '2018',  1 => '2019',  2 => '2020',  3 => '2021',), 'correct' => 2],
+                    ['question' => 'Quel est le nom du vaccin d\'AstraZeneca ?', 'options' => array (  0 => 'Vaxzevria',  1 => 'Pfizer',  2 => 'Moderna',  3 => 'Sinovac',), 'correct' => 0],
+                    ['question' => 'Qui est devenu président du Sénégal en 2024 ?', 'options' => array (  0 => 'Macky Sall',  1 => 'Bassirou Diomaye Faye',  2 => 'Idrissa Seck',  3 => 'Barthélémy Dias',), 'correct' => 1],
+                    ['question' => 'Quelle ville a accueilli les Jeux Olympiques 2024 ?', 'options' => array (  0 => 'Tokyo',  1 => 'Paris',  2 => 'Los Angeles',  3 => 'Londres',), 'correct' => 1],
+                ],
             ],
         ];
 
-        foreach ($q1Data as $q) {
-            $quiz1->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
+        foreach ($quizzes as $qz) {
+            $quiz = Quiz::firstOrCreate(
+                ['slug' => $qz['slug']],
+                [
+                    'user_id' => $user->id,
+                    'title' => $qz['title'],
+                    'description' => $qz['description'],
+                    'category' => $qz['category'],
+                    'is_public' => true,
+                    'plays' => $qz['plays'],
+                ]
+            );
+            foreach ($qz['questions'] as $qq) {
+                $quiz->questions()->firstOrCreate(
+                    ['question' => $qq['question']],
+                    ['options' => $qq['options'], 'correct_index' => $qq['correct'], 'points' => 10]
+                );
+            }
         }
 
-        // ---------- Quiz : Football Lions ----------
-        $quiz2 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Football : les Lions de la Téranga',
-            'description' => 'Les champions d\'Afrique 2022 ! 🦁',
-            'category' => 'football',
-            'slug' => 'football-lions-teranga-def456',
-            'is_public' => true,
-            'plays' => 310,
-        ]);
-
-        $q2Data = [
-            [
-                'question' => 'En quelle année le Sénégal a-t-il remporté la CAN ?',
-                'options' => ['2019', '2022', '2023', '2017'],
-                'correct' => 1,
-            ],
-            [
-                'question' => 'Qui est le capitaine des Lions de la Téranga ?',
-                'options' => ['Édouard Mendy', 'Sadio Mané', 'Kalidou Koulibaly', 'Idrissa Gueye'],
-                'correct' => 2,
-            ],
-            [
-                'question' => 'Quel club a révélé Sadio Mané en Europe ?',
-                'options' => ['Liverpool', 'Southampton', 'RB Salzbourg', 'Metz'],
-                'correct' => 2,
-            ],
-            [
-                'question' => 'Qui était le sélectionneur lors du titre de la CAN 2022 ?',
-                'options' => ['Aliou Cissé', 'Pape Thiaw', 'Habib Beye', 'Alain Giresse'],
-                'correct' => 0,
-            ],
-        ];
-
-        foreach ($q2Data as $q) {
-            $quiz2->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
-        }
-
-        // ---------- Quiz : Géographie ----------
-        $quiz3 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Géographie du Sénégal',
-            'description' => 'Connais-tu bien les régions et fleuves ? 🗺️',
-            'category' => 'geographie',
-            'slug' => 'geographie-senegal-ghi789',
-            'is_public' => true,
-            'plays' => 74,
-        ]);
-
-        $q3Data = [
-            [
-                'question' => 'Quel fleuve forme la frontière nord du Sénégal ?',
-                'options' => ['Fleuve Gambie', 'Fleuve Sénégal', 'Fleuve Casamance', 'Fleuve Saloum'],
-                'correct' => 1,
-            ],
-            [
-                'question' => 'Quel pays est enchâssé dans le territoire sénégalais ?',
-                'options' => ['Mali', 'Guinée', 'Gambie', 'Mauritanie'],
-                'correct' => 2,
-            ],
-            [
-                'question' => 'Quel lac est célèbre pour sa couleur rose ?',
-                'options' => ['Lac de Guiers', 'Lac Rose (Retba)', 'Lac Tamma', 'Lac des Vallées'],
-                'correct' => 1,
-            ],
-        ];
-
-        foreach ($q3Data as $q) {
-            $quiz3->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
-        }
-
-        // ---------- Quiz : Culture générale ----------
-        $quiz4 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Culture générale mondiale',
-            'description' => 'Un peu de tout pour tester ta culture ! 🌍',
-            'category' => 'general',
-            'slug' => 'culture-generale-monde-jkl012',
-            'is_public' => true,
-            'plays' => 205,
-        ]);
-
-        $q4Data = [
-            [
-                'question' => 'Combien y a-t-il de continents sur Terre ?',
-                'options' => ['5', '6', '7', '8'],
-                'correct' => 2,
-            ],
-            [
-                'question' => 'Quel est le plus grand océan du monde ?',
-                'options' => ['Atlantique', 'Pacifique', 'Indien', 'Arctique'],
-                'correct' => 1,
-            ],
-            [
-                'question' => 'Quelle planète est surnommée la planète rouge ?',
-                'options' => ['Vénus', 'Jupiter', 'Mars', 'Saturne'],
-                'correct' => 2,
-            ],
-            [
-                'question' => 'Combien de couleurs y a-t-il dans un arc-en-ciel ?',
-                'options' => ['5', '6', '7', '8'],
-                'correct' => 2,
-            ],
-            [
-                'question' => 'Quel animal est le plus grand du monde ?',
-                'options' => ['Éléphant', 'Baleine bleue', 'Girafe', 'Requin blanc'],
-                'correct' => 1,
-            ],
-        ];
-
-        foreach ($q4Data as $q) {
-            $quiz4->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
-        }
-
-        // ---------- Quiz : Science & Nature ----------
-        $quiz5 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Science et nature',
-            'description' => 'Les mystères de la science à ta portée ! 🔬',
-            'category' => 'science',
-            'slug' => 'science-nature-abcxyz',
-            'is_public' => true,
-            'plays' => 98,
-        ]);
-
-        $q5Data = [
-            [
-                'question' => 'Quel gaz les plantes absorbent-elles pour la photosynthèse ?',
-                'options' => ['Oxygène', 'Azote', 'Dioxyde de carbone', 'Hydrogène'],
-                'correct' => 2,
-            ],
-            [
-                'question' => 'Combien de planètes font partie du système solaire (hors Pluton) ?',
-                'options' => ['7', '8', '9', '10'],
-                'correct' => 1,
-            ],
-            [
-                'question' => 'Quel est le symbole chimique de l\'eau ?',
-                'options' => ['O2', 'H2O', 'CO2', 'NaCl'],
-                'correct' => 1,
-            ],
-            [
-                'question' => 'Quelle est la vitesse de la lumière ?',
-                'options' => ['300 000 km/s', '150 000 km/s', '1 million km/s', '30 000 km/s'],
-                'correct' => 0,
-            ],
-        ];
-
-        foreach ($q5Data as $q) {
-            $quiz5->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
-        }
-
-        // ---------- Quiz : Histoire africaine ----------
-        $quiz6 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Histoire de l\'Afrique',
-            'description' => 'Les grands moments de l\'histoire africaine ! 📜',
-            'category' => 'histoire',
-            'slug' => 'histoire-afrique-xyz987',
-            'is_public' => true,
-            'plays' => 150,
-        ]);
-
-        $q6Data = [
-            [
-                'question' => 'Quelle ancienne civilisation africaine a bâti les pyramides de Gizeh ?',
-                'options' => ['Nubie', 'Égypte', 'Axoum', 'Mali'],
-                'correct' => 1,
-            ],
-            [
-                'question' => 'Qui est le célèbre empereur de l\'empire du Mali connu pour son pèlerinage à La Mecque ?',
-                'options' => ['Soundiata Keïta', 'Mansa Moussa', 'Askia Mohammed', 'Sundiata'],
-                'correct' => 1,
-            ],
-            [
-                'question' => 'Quel est l\'ancien nom de la ville de Bobo-Dioulasso ?',
-                'options' => ['Sylla', 'Kong', 'Sya', 'Wagadougou'],
-                'correct' => 2,
-            ],
-        ];
-
-        foreach ($q6Data as $q) {
-            $quiz6->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
-        }
-
-        // ---------- Quiz : Sport ----------
-        $quiz7 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Sport : le monde',
-            'description' => 'Teste tes connaissances sportives ! ⚽',
-            'category' => 'sport',
-            'slug' => 'sport-monde-451abc',
-            'is_public' => true,
-            'plays' => 88,
-        ]);
-
-        $q7Data = [
-            ['question' => 'Quel pays a remporté la Coupe du Monde 2018 ?', 'options' => ['Brésil', 'Allemagne', 'France', 'Argentine'], 'correct' => 2],
-            ['question' => 'Combien de joueurs y a-t-il dans une équipe de football sur le terrain ?', 'options' => ['10', '11', '12', '9'], 'correct' => 1],
-            ['question' => 'Dans quel sport utilise-t-on une raquette et un volant ?', 'options' => ['Tennis', 'Badminton', 'Squash', 'Padel'], 'correct' => 1],
-            ['question' => 'Qui est surnommé le GOAT au basketball ?', 'options' => ['LeBron James', 'Michael Jordan', 'Kobe Bryant', 'Shaquille O\'Neal'], 'correct' => 1],
-        ];
-
-        foreach ($q7Data as $q) {
-            $quiz7->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
-        }
-
-        // ---------- Quiz : Musique africaine ----------
-        $quiz8 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Musique africaine',
-            'description' => 'Les grands noms de la musique africaine ! 🎵',
-            'category' => 'musique',
-            'slug' => 'musique-africaine-862def',
-            'is_public' => true,
-            'plays' => 130,
-        ]);
-
-        $q8Data = [
-            ['question' => 'Quel chanteur sénégalais est surnommé le « Roi du Mbalax » ?', 'options' => ['Ismaël Lô', 'Youssou N\'Dour', 'Baaba Maal', 'Cheikh Lô'], 'correct' => 1],
-            ['question' => 'De quel pays vient l\'artiste Sarkodie ?', 'options' => ['Nigeria', 'Ghana', 'Sénégal', 'Côte d\'Ivoire'], 'correct' => 1],
-            ['question' => 'Quelle artiste nigériane est connue sous le nom de « Queen of Afrobeats » ?', 'options' => ['Wizkid', 'Davido', 'Yemi Alade', 'Tiwa Savage'], 'correct' => 3],
-            ['question' => 'Quel instrument est un tambour traditionnel africain ?', 'options' => ['Kora', 'Balafon', 'Djembe', 'Cora'], 'correct' => 2],
-        ];
-
-        foreach ($q8Data as $q) {
-            $quiz8->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
-        }
-
-        // ---------- Quiz : Informatique ----------
-        $quiz9 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Informatique et Internet',
-            'description' => 'Le monde du numérique ! 💻',
-            'category' => 'informatique',
-            'slug' => 'informatique-internet-773ghi',
-            'is_public' => true,
-            'plays' => 75,
-        ]);
-
-        $q9Data = [
-            ['question' => 'Que signifie « WWW » ?', 'options' => ['World Web Wide', 'World Wide Web', 'Web World Wide', 'Wide Web World'], 'correct' => 1],
-            ['question' => 'Quel est le langage de programmation créé par Rasmus Lerdorf ?', 'options' => ['JavaScript', 'Python', 'PHP', 'Java'], 'correct' => 2],
-            ['question' => 'Quelle entreprise a créé le système d\'exploitation Windows ?', 'options' => ['Apple', 'Microsoft', 'Google', 'IBM'], 'correct' => 1],
-            ['question' => 'Que signifie l\'acronyme « HTML » ?', 'options' => ['HyperText Markup Language', 'Home Tool Markup Language', 'Hyperlink Text Model Language', 'High Tech Modern Language'], 'correct' => 0],
-        ];
-
-        foreach ($q9Data as $q) {
-            $quiz9->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
-        }
-
-        // ---------- Quiz : Géographie du monde ----------
-        $quiz10 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Géographie du monde',
-            'description' => 'Les merveilles de la planète ! 🌎',
-            'category' => 'geographie',
-            'slug' => 'geographie-monde-684jkl',
-            'is_public' => true,
-            'plays' => 95,
-        ]);
-
-        $q10Data = [
-            ['question' => 'Quel est le plus long fleuve du monde ?', 'options' => ['Amazon', 'Nil', 'Yangtsé', 'Mississippi'], 'correct' => 0],
-            ['question' => 'Quel est le plus grand désert du monde (hors pôles) ?', 'options' => ['Gobi', 'Sahara', 'Kalahari', 'Atacama'], 'correct' => 1],
-            ['question' => 'Quel est le plus haut sommet du monde ?', 'options' => ['K2', 'Mont Everest', 'Kangchenjunga', 'Mont Blanc'], 'correct' => 1],
-            ['question' => 'Combien de pays font partie de l\'Union africaine ?', 'options' => ['50', '54', '55', '57'], 'correct' => 2],
-        ];
-
-        foreach ($q10Data as $q) {
-            $quiz10->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
-        }
-
-        // ---------- Quiz : Cinéma ----------
-        $quiz11 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Cinéma et séries',
-            'description' => 'À toi de jouer ! 🎬',
-            'category' => 'cinema',
-            'slug' => 'cinema-series-595mno',
-            'is_public' => true,
-            'plays' => 110,
-        ]);
-
-        $q11Data = [
-            ['question' => 'Qui joue Iron Man dans le MCU ?', 'options' => ['Chris Evans', 'Robert Downey Jr', 'Chris Hemsworth', 'Mark Ruffalo'], 'correct' => 1],
-            ['question' => 'Quel film est célèbre pour la phrase « May the Force be with you » ?', 'options' => ['Star Wars', 'Star Trek', 'Avatar', 'Interstellar'], 'correct' => 0],
-            ['question' => 'Dans quelle ville se déroule la série « Lupin » ?', 'options' => ['Londres', 'Paris', 'Rome', 'New York'], 'correct' => 1],
-            ['question' => 'Quel dessin animé met en scène un garçon ninja ?', 'options' => ['Dragon Ball', 'Naruto', 'One Piece', 'Bleach'], 'correct' => 1],
-        ];
-
-        foreach ($q11Data as $q) {
-            $quiz11->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
-        }
-
-        // ---------- Quiz : Cuisine ----------
-        $quiz12 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Cuisine du monde',
-            'description' => 'Les saveurs de la planète ! 🍽️',
-            'category' => 'cuisine',
-            'slug' => 'cuisine-monde-406pqr',
-            'is_public' => true,
-            'plays' => 64,
-        ]);
-
-        $q12Data = [
-            ['question' => 'Dans quel pays est née la pizza ?', 'options' => ['France', 'Espagne', 'Italie', 'Grèce'], 'correct' => 2],
-            ['question' => 'Quel plat japonais se compose de riz vinaigré et de poisson cru ?', 'options' => ['Ramen', 'Sushi', 'Tempura', 'Udon'], 'correct' => 1],
-            ['question' => 'Quel est le plat typique du Sénégal à base de mil ?', 'options' => ['Thiéboudienne', 'Thiakry', 'Yassa', 'Mafé'], 'correct' => 1],
-            ['question' => 'Quelle épice donne la couleur jaune au curry ?', 'options' => ['Paprika', 'Curcuma', 'Safran', 'Cumin'], 'correct' => 1],
-        ];
-
-        foreach ($q12Data as $q) {
-            $quiz12->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
-        }
-
-        // ---------- Quiz : Science-fiction ----------
-        $quiz13 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Science-fiction et imaginaire',
-            'description' => 'L\'univers de l\'imaginaire ! 🚀',
-            'category' => 'general',
-            'slug' => 'science-fiction-317stu',
-            'is_public' => true,
-            'plays' => 70,
-        ]);
-
-        $q13Data = [
-            ['question' => 'Quel vaisseau a emmené le premier homme sur la Lune ?', 'options' => ['Apollo 11', 'Apollo 13', 'Discovery', 'Columbus'], 'correct' => 0],
-            ['question' => 'Qui a écrit « Le Petit Prince » ?', 'options' => ['Victor Hugo', 'Antoine de Saint-Exupéry', 'Jules Verne', 'Albert Camus'], 'correct' => 1],
-            ['question' => 'Dans « Harry Potter », quelle école apprend-on la magie ?', 'options' => ['Hogwarts', 'Beauxbatons', 'Durmstrang', 'Poudlard'], 'correct' => 3],
-            ['question' => 'Quel héros porte un costume bleu et une cape rouge ?', 'options' => ['Batman', 'Superman', 'Spiderman', 'Flash'], 'correct' => 1],
-        ];
-
-        foreach ($q13Data as $q) {
-            $quiz13->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
-        }
-
-        // ---------- Quiz : Sénégal hauts lieux ----------
-        $quiz14 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Sénégal : les hauts lieux',
-            'description' => 'Explore le Sénégal ! 🗺️',
-            'category' => 'geographie',
-            'slug' => 'senegal-hauts-lieux-228vwx',
-            'is_public' => true,
-            'plays' => 58,
-        ]);
-
-        $q14Data = [
-            ['question' => 'Où se trouve la célèbre Mosquée de la Divinité (Touba) ?', 'options' => ['Touba', 'Dakar', 'Saint-Louis', 'Kaolack'], 'correct' => 0],
-            ['question' => 'Quelle ville est surnommée « la Perle de la Casamance » ?', 'options' => ['Ziguinchor', 'Kolda', 'Bignona', 'Oussouye'], 'correct' => 0],
-            ['question' => 'Quel est le plus grand port du Sénégal ?', 'options' => ['Port de Saint-Louis', 'Port de Dakar', 'Port de Ziguinchor', 'Port de Kaolack'], 'correct' => 1],
-            ['question' => 'Quelle réserve abrite le delta du Saloum ?', 'options' => ['Réserve de Bandia', 'Parc du Niokolo-Koba', 'Réserve du Saloum', 'Réserve de Fathala'], 'correct' => 2],
-        ];
-
-        foreach ($q14Data as $q) {
-            $quiz14->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
-        }
-
-        // ---------- Quiz : Économie ----------
-        $quiz15 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Économie et argent',
-            'description' => 'Le monde des finances ! 💰',
-            'category' => 'economie',
-            'slug' => 'economie-argent-139yzab',
-            'is_public' => true,
-            'plays' => 40,
-        ]);
-
-        $q15Data = [
-            ['question' => 'Quelle est la monnaie de l\'Union économique ouest-africaine (UEMOA) ?', 'options' => ['Naira', 'Franc CFA', 'Cedi', 'Dirham'], 'correct' => 1],
-            ['question' => 'Quel est le plus grand centre financier du monde ?', 'options' => ['Londres', 'New York', 'Tokyo', 'Hong Kong'], 'correct' => 1],
-            ['question' => 'Que signifie l\'acronyme « PIB » ?', 'options' => ['Produit Intérieur Brut', 'Produit International Brut', 'Prix Indice Boursier', 'Produit Interne Bancaire'], 'correct' => 0],
-            ['question' => 'Quel organisme s\'occupe du commerce mondial ?', 'options' => ['FMI', 'OMC', 'Banque mondiale', 'ONU'], 'correct' => 1],
-        ];
-
-        foreach ($q15Data as $q) {
-            $quiz15->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
-        }
-
-        // ---------- Quiz : Nature ----------
-        $quiz16 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Nature et animaux',
-            'description' => 'Le règne animal ! 🦁',
-            'category' => 'nature',
-            'slug' => 'nature-animaux-040cdef',
-            'is_public' => true,
-            'plays' => 85,
-        ]);
-
-        $q16Data = [
-            ['question' => 'Quel animal est le plus rapide du monde ?', 'options' => ['Guépard', 'Lion', 'Antilope', 'Panthère'], 'correct' => 0],
-            ['question' => 'Combien de cœurs possède une pieuvre ?', 'options' => ['1', '2', '3', '4'], 'correct' => 2],
-            ['question' => 'Quel oiseau ne peut pas voler ?', 'options' => ['Aigle', 'Autruche', 'Pigeon', 'Faucon'], 'correct' => 1],
-            ['question' => 'Quel est le mammifère le plus grand du monde ?', 'options' => ['Éléphant d\'Afrique', 'Baleine bleue', 'Girafe', 'Rhinocéros'], 'correct' => 1],
-        ];
-
-        foreach ($q16Data as $q) {
-            $quiz16->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
-        }
-
-        // ---------- Quiz : Personnalités ----------
-        $quiz17 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Personnalités sénégalaises',
-            'description' => 'Connais-tu ces grands Sénégalais ? ⭐',
-            'category' => 'culture',
-            'slug' => 'personnalites-senegalaises-151ghij',
-            'is_public' => true,
-            'plays' => 120,
-        ]);
-
-        $q17Data = [
-            ['question' => 'Quel Sénégalais a été secrétaire général de l\'ONU ?', 'options' => ['Abdou Diouf', 'Kofi Annan', 'Boutros Boutros-Ghali', 'Ban Ki-moon'], 'correct' => 0],
-            ['question' => 'Qui a écrit le célèbre roman « Une si longue lettre » ?', 'options' => ['Aminata Sow Fall', 'Mariama Bâ', 'Ken Bugul', 'Calixthe Beyala'], 'correct' => 1],
-            ['question' => 'Quel chanteur a composé « 7 Seconds » en duo avec Neneh Cherry ?', 'options' => ['Ismaël Lô', 'Youssou N\'Dour', 'Baaba Maal', 'Cheikh Lô'], 'correct' => 1],
-            ['question' => 'Qui est le premier président de la République du Sénégal ?', 'options' => ['Abdoulaye Wade', 'Léopold Sédar Senghor', 'Macky Sall', 'Mamadou Dia'], 'correct' => 1],
-        ];
-
-        foreach ($q17Data as $q) {
-            $quiz17->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
-        }
-
-        // ---------- Quiz : Santé ----------
-        $quiz18 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Santé et corps humain',
-            'description' => 'Découvre ton corps ! 🩺',
-            'category' => 'science',
-            'slug' => 'sante-corps-262ijkl',
-            'is_public' => true,
-            'plays' => 55,
-        ]);
-
-        $q18Data = [
-            ['question' => 'Combien d\'os possède un adulte humain ?', 'options' => ['200', '206', '210', '215'], 'correct' => 1],
-            ['question' => 'Quel organe est chargé de la circulation du sang ?', 'options' => ['Poumons', 'Cœur', 'Foie', 'Reins'], 'correct' => 1],
-            ['question' => 'Combien de dents possède un adulte ?', 'options' => ['28', '30', '32', '36'], 'correct' => 2],
-            ['question' => 'Quel est le plus grand organe du corps humain ?', 'options' => ['Cerveau', 'Peau', 'Foie', 'Intestin'], 'correct' => 1],
-        ];
-
-        foreach ($q18Data as $q) {
-            $quiz18->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
-        }
-
-        // ---------- Quiz : Littérature ----------
-        $quiz19 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Littérature et histoires',
-            'description' => 'Le monde des livres ! 📚',
-            'category' => 'general',
-            'slug' => 'litterature-histoires-373klmn',
-            'is_public' => true,
-            'plays' => 63,
-        ]);
-
-        $q19Data = [
-            ['question' => 'Qui a écrit « Le Comte de Monte-Cristo » ?', 'options' => ['Victor Hugo', 'Alexandre Dumas', 'Émile Zola', 'Gustave Flaubert'], 'correct' => 1],
-            ['question' => 'Quel est le premier livre de la Bible ?', 'options' => ['Exode', 'Genèse', 'Lévitique', 'Psaumes'], 'correct' => 1],
-            ['question' => 'Qui est l\'auteur de « Bel-Ami » ?', 'options' => ['Guy de Maupassant', 'Stendhal', 'Honoré de Balzac', 'Marcel Proust'], 'correct' => 0],
-            ['question' => 'Quel conte met en scène un petit chaperon rouge ?', 'options' => ['Blanche-Neige', 'Le petit Chaperon rouge', 'Cendrillon', 'Hansel et Gretel'], 'correct' => 1],
-        ];
-
-        foreach ($q19Data as $q) {
-            $quiz19->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
-        }
-
-        // ---------- Quiz : Actualités ----------
-        $quiz20 = Quiz::create([
-            'user_id' => $user->id,
-            'title' => 'Actualités et faits divers',
-            'description' => 'Les faits marquants ! 📰',
-            'category' => 'general',
-            'slug' => 'actualites-faits-484mnop',
-            'is_public' => true,
-            'plays' => 90,
-        ]);
-
-        $q20Data = [
-            ['question' => 'En quelle année a eu lieu le début de la pandémie COVID-19 ?', 'options' => ['2018', '2019', '2020', '2021'], 'correct' => 2],
-            ['question' => 'Quel est le nom du vaccin d\'AstraZeneca ?', 'options' => ['Vaxzevria', 'Pfizer', 'Moderna', 'Sinovac'], 'correct' => 0],
-            ['question' => 'Qui est devenu président du Sénégal en 2024 ?', 'options' => ['Macky Sall', 'Bassirou Diomaye Faye', 'Idrissa Seck', 'Barthélémy Dias'], 'correct' => 1],
-            ['question' => 'Quelle ville a accueilli les Jeux Olympiques 2024 ?', 'options' => ['Tokyo', 'Paris', 'Los Angeles', 'Londres'], 'correct' => 1],
-        ];
-
-        foreach ($q20Data as $q) {
-            $quiz20->questions()->create([
-                'question' => $q['question'],
-                'options' => $q['options'],
-                'correct_index' => $q['correct'],
-                'points' => 10,
-            ]);
-        }
-
-        // ---------- Devinettes ----------
+        // ---------- DEVINETTES ----------
         $devinettes = [
             [
                 'title' => 'Le secret du pêcheur',
@@ -679,7 +317,7 @@ class DatabaseSeeder extends Seeder
                 'answer' => 'thiéboudienne',
                 'hint' => 'C\'est le plat national',
                 'category' => 'culture',
-                'challenges' => 45,
+                'challenges' => 49,
                 'successes' => 31,
             ],
             [
@@ -688,8 +326,8 @@ class DatabaseSeeder extends Seeder
                 'answer' => 'lion',
                 'hint' => 'Roi des animaux',
                 'category' => 'general',
-                'challenges' => 23,
-                'successes' => 19,
+                'challenges' => 25,
+                'successes' => 20,
             ],
             [
                 'title' => 'L\'énigme du lac',
@@ -760,8 +398,8 @@ class DatabaseSeeder extends Seeder
                 'answer' => 'ciel',
                 'hint' => 'Au-dessus de ta tête',
                 'category' => 'nature',
-                'challenges' => 19,
-                'successes' => 14,
+                'challenges' => 21,
+                'successes' => 15,
             ],
             [
                 'title' => 'Le gardien du temps',
@@ -856,18 +494,20 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($devinettes as $d) {
-            Devinette::create([
-                'user_id' => $user->id,
-                'title' => $d['title'],
-                'question' => $d['question'],
-                'answer' => $d['answer'],
-                'hint' => $d['hint'],
-                'category' => $d['category'],
-                'slug' => Str::slug($d['title']).'-'.Str::random(5),
-                'is_public' => true,
-                'challenges' => $d['challenges'],
-                'successes' => $d['successes'],
-            ]);
+            Devinette::firstOrCreate(
+                ['title' => $d['title']],
+                [
+                    'user_id' => $user->id,
+                    'question' => $d['question'],
+                    'answer' => $d['answer'],
+                    'hint' => $d['hint'],
+                    'category' => $d['category'],
+                    'slug' => Str::slug($d['title']) . '-' . Str::random(5),
+                    'is_public' => true,
+                    'challenges' => $d['challenges'],
+                    'successes' => $d['successes'],
+                ]
+            );
         }
     }
 }
