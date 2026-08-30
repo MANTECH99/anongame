@@ -130,6 +130,11 @@ function generateCardCanvas({ message = '', sender = '', reply = null, withFoote
     ctx.fillStyle = '#ffffff';
     ctx.fillText('Bienvenue sur AnonGame', W / 2, by + badge + 30);
 
+    // header subtitle
+    ctx.font = font(600, 13);
+    ctx.fillStyle = 'rgba(255,255,255,0.9)';
+    ctx.fillText('Envoie moi un message anonyme', W / 2, by + badge + 50);
+
     // message body (dark, no white background)
     if (msgLines.length) {
         ctx.fillStyle = bodyBg;
