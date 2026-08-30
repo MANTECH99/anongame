@@ -16,20 +16,24 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        $user = User::factory()->create([
-            'name' => 'Admin Sénégal',
-            'pseudo' => 'admin221',
-            'email' => 'admin@anongame.sn',
-            'phone' => '771234567',
-            'password' => bcrypt('password'),
-        ]);
+        $user = User::firstOrCreate(
+            ['email' => 'admin@anongame.sn'],
+            [
+                'name' => 'Admin Sénégal',
+                'pseudo' => 'admin221',
+                'phone' => '771234567',
+                'password' => bcrypt('password'),
+            ]
+        );
 
-        AnonymousLink::create([
-            'user_id' => $user->id,
-            'slug' => 'admin221',
-            'title' => 'Admin Sénégal',
-            'is_active' => true,
-        ]);
+        AnonymousLink::firstOrCreate(
+            ['user_id' => $user->id],
+            [
+                'slug' => 'admin221',
+                'title' => 'Admin Sénégal',
+                'is_active' => true,
+            ]
+        );
 
         // ---------- Quiz : Culture sénégalaise ----------
         $quiz1 = Quiz::create([
