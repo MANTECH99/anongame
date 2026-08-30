@@ -46,16 +46,22 @@
 
             const result = document.getElementById('devinette-result');
             const input = document.getElementById('devinette-answer');
-            const btn = form.querySelector('button[type=submit]');
-            const token = document.querySelector('meta[name="csrf-token"]').content;
+            const btn = form.querySelector('button');
+            const meta = document.querySelector('meta[name="csrf-token"]');
+            const token = meta ? meta.content : '';
 
             form.addEventListener('submit', async function (e) {
                 e.preventDefault();
+
+                if (!input || !result || !token) return;
+
                 const answer = input.value.trim();
                 if (!answer) return;
 
-                btn.disabled = true;
-                btn.textContent = '…';
+                if (btn) {
+                    btn.disabled = true;
+                    btn.textContent = '…';
+                }
                 result.classList.add('hidden');
 
                 try {
@@ -85,8 +91,10 @@
                     result.textContent = 'Erreur lors de l\'envoi, réessaie.';
                     result.className = 'mt-3 px-4 py-3 rounded-lg text-sm font-semibold bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300';
                 } finally {
-                    btn.disabled = false;
-                    btn.textContent = 'Répondre';
+                    if (btn) {
+                        btn.disabled = false;
+                        btn.textContent = 'Répondre';
+                    }
                 }
             });
         })();
