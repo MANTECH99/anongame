@@ -91,7 +91,7 @@
             <div class="bg-white dark:bg-gray-800 w-full max-w-lg rounded-t-3xl p-6 pb-8" @click.stop>
                 <div class="w-10 h-1.5 rounded-full bg-gray-300 mx-auto mb-5"></div>
                 <h3 class="font-extrabold text-gray-800 dark:text-white mb-3">Répondre</h3>
-                <textarea x-model="reply" rows="4" placeholder="Écris ta réponse..."
+                <textarea x-model="reply" rows="4" placeholder="Écris ma réponse..."
                     class="w-full text-sm border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
                 <button @click="replyOpen = false; shareMessageImage($refs.shareCard, { reply: reply })"
                     :disabled="!reply.trim()"

@@ -158,14 +158,14 @@ function generateCardCanvas({ message = '', sender = '', reply = null, withFoote
         ctx.lineTo(W, by2 + 0.5);
         ctx.stroke();
         by2 += 18;
-        ctx.textAlign = 'left';
+        ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
         ctx.font = font(800, 11);
-        ctx.fillStyle = 'rgba(255,255,255,0.6)';
-        ctx.fillText('TA R\u00c9PONSE', PAD, by2);
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.fillText('MA R\u00c9PONSE', W / 2, by2);
         by2 += replyLabelH;
         ctx.font = font(600, replySize);
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = '#4ADE80';
         ctx.textAlign = 'center';
         for (const line of replyLines) {
             ctx.fillText(line, W / 2, by2);
