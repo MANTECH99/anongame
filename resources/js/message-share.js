@@ -6,7 +6,6 @@ const W = 440;
 const SCALE = 2;
 const PAD = 26;
 const RADIUS = 30;
-const MIN_MSG_AREA = 320; // keep the card portrait even for short messages
 
 function roundRect(ctx, x, y, w, h, r) {
     ctx.beginPath();
@@ -73,7 +72,7 @@ function generateCardCanvas({ message = '', sender = '', reply = null, withFoote
     meas.font = font(500, msgSize);
     const msgLines = wrap(meas, message, maxW);
     const msgTextH = msgLines.length * msgLh;
-    const msgAreaH = Math.max(msgTextH + msgTopPad * 2, MIN_MSG_AREA);
+    const msgAreaH = msgTextH + msgTopPad * 2;
 
     let replyLines = [];
     let replyH = 0;
