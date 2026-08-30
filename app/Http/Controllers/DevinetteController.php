@@ -80,10 +80,10 @@ class DevinetteController extends Controller
         if ($isCorrect) {
             $devinette->increment('successes');
 
-            return back()->with('success', 'Bonne réponse ! 🎉');
+            return redirect()->route('devinette.show', $devinette->slug)->with('success', 'Bonne réponse ! 🎉');
         }
 
-        return back()->with('error', 'Mauvaise réponse, essaie encore !');
+        return redirect()->route('devinette.show', $devinette->slug)->with('error', 'Mauvaise réponse, essaie encore !');
     }
 
     public function my()
