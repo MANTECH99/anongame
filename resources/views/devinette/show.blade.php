@@ -18,12 +18,13 @@
                 <span class="text-xs text-gray-400">💡 Indice : {{ $devinette->hint }}</span>
                 @endif
             </div>
-            <form method="POST" action="{{ route('devinette.solve', $devinette->slug) }}" class="flex gap-2">
+            <form method="POST" action="{{ route('devinette.solve', $devinette->slug) }}" class="flex gap-2" id="devinette-form">
                 @csrf
-                <input type="text" name="answer" required placeholder="Ta réponse..."
+                <input type="text" name="answer" required placeholder="Ta réponse..." id="devinette-answer"
                     class="flex-1 text-sm border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-xl px-4 py-2.5">
                 <button class="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 rounded-xl transition">Répondre</button>
             </form>
+            <div id="devinette-result" class="hidden mt-3 px-4 py-3 rounded-lg text-sm font-semibold"></div>
         </div>
 
         <!-- Partage -->
@@ -36,4 +37,59 @@
             <button class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2.5 rounded-xl transition">Partager sur WhatsApp</button>
         </form>
     </div>
+
+    @push('scripts')
+    <script>
+        (function () {
+            const form = document.getElementById('devinette-form');
+            if (!form) return;
+
+            const result = document.getElementById('devinette-result');
+            const input = document.getElementById('devinette-answer');
+            const btn = form.querySelector('button[type=submit]');
+            const token = document.querySelector('meta[name="csrf-token"]').content;
+
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const answer = input.value.trim();
+                if (!answer) return;
+
+                btn.disabled = true;
+                btn.textContent = '…';
+                result.classList.add('hidden');
+
+                try {
+                    const res = await fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRF-TOKEN': token,
+                        },
+                        body: new URLSearchParams({ answer: answer, _token: token }),
+                    });
+
+                    const data = await res.json();
+                    result.classList.remove('hidden');
+
+                    if (data.correct) {
+                        result.textContent = 'Bonne réponse ! 🎉';
+                        result.className = 'mt-3 px-4 py-3 rounded-lg text-sm font-semibold bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300';
+                    } else {
+                        result.textContent = 'Mauvaise réponse, essaie encore !';
+                        result.className = 'mt-3 px-4 py-3 rounded-lg text-sm font-semibold bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300';
+                    }
+                } catch (err) {
+                    result.classList.remove('hidden');
+                    result.textContent = 'Erreur lors de l\'envoi, réessaie.';
+                    result.className = 'mt-3 px-4 py-3 rounded-lg text-sm font-semibold bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300';
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = 'Répondre';
+                }
+            });
+        })();
+    </script>
+    @endpush
 </x-game-layout>

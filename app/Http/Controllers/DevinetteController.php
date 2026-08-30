@@ -80,7 +80,15 @@ class DevinetteController extends Controller
         if ($isCorrect) {
             $devinette->increment('successes');
 
+            if ($request->expectsJson()) {
+                return response()->json(['correct' => true]);
+            }
+
             return redirect()->route('devinette.show', $devinette->slug)->with('success', 'Bonne réponse ! 🎉');
+        }
+
+        if ($request->expectsJson()) {
+            return response()->json(['correct' => false]);
         }
 
         return redirect()->route('devinette.show', $devinette->slug)->with('error', 'Mauvaise réponse, essaie encore !');
